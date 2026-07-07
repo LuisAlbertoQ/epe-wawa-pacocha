@@ -1,0 +1,51 @@
+site_name: EPE — Wawa Pacocha
+site_description: Evaluación de Perfil de Egreso — Ingeniería de Sistemas (UPeU)
+# Reemplaza LuisAlbertoQ por tu usuario de GitHub antes de desplegar:
+site_url: https://LuisAlbertoQ.github.io/epe-wawa-pacocha/
+use_directory_urls: false
+
+theme:
+  name: material
+  language: es
+  palette:
+    - scheme: default
+      primary: green
+      accent: deep orange
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+
+nav:
+  - Inicio: index.md
+  - Software:
+      - Resumen: software/index.md
+      - E1 · Definición del Sistema: software/e1.md
+      - E2 · Base de Datos: software/e2.md
+      - Presentación: software/presentacion.md
+  - Gestión de TI:
+      - Resumen: gestion/index.md
+      - E1 · Diagnóstico: gestion/e1.md
+      - E2 · Business Case: gestion/e2.md
+      - E3 · Plan de Gestión: gestion/e3.md
+      - E4 · Modelado de Procesos: gestion/e4.md
+  - Infraestructura:
+      - Resumen: infraestructura/index.md
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
