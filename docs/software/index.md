@@ -17,3 +17,4 @@
 - [:material-database: Script SQL principal — `wawapacocha_E2_completo.sql`](files/E2_scripts/wawapacocha_E2_completo.sql){ .md-button }
 - [:material-file-document: Anexos complementarios E2 (PDF)](files/E2_Anexos_Complementarios_v1.5.pdf){ .md-button }
 - [:material-sitemap: Diagramas (Mermaid)](files/Diagramas_Mermaid.md){ .md-button }
+- [:material-folder-multiple: Recursos y archivos (capturas, scripts, evidencias)](recursos.md){ .md-button }

@@ -12,5 +12,7 @@
 | **S2 E2 — Implementación, Testing y Monitoreo de Red** | [PDF](S2_E2_Implementacion_Testing_y_Monitoreo_de_Red_WawaPacocha_PLANTILLA_UPeU_CORREGIDO.pdf){ .md-button } [Word](S2_E2_Implementacion_Testing_y_Monitoreo_de_Red_WawaPacocha_PLANTILLA_UPeU_CORREGIDO.docx){ .md-button } |
 | **S2 E3 — Implementación, Gestión y Control de Centro de Datos** | [PDF](S2_E3_Implementacion_Gestion_y_Control_de_Centro_de_Datos_WawaPacocha_PLANTILLA_UPeU_CORREGIDO.pdf){ .md-button } [Word](S2_E3_Implementacion_Gestion_y_Control_de_Centro_de_Datos_WawaPacocha_PLANTILLA_UPeU_CORREGIDO.docx){ .md-button } |
 
+[:material-folder-multiple: Ver todos los recursos y archivos](recursos.md){ .md-button }
+
 !!! note "Recursos adicionales"
     Diagramas (`.drawio` y PNG) y archivos Excel de soporte se encuentran en las carpetas `diagramas/` y `entregables_xlsx/`.
