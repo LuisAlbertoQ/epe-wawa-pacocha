@@ -1,0 +1,19 @@
+digraph "e1_estados_animal" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=1.4, ranksep=0.7];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+  ini [shape=circle, style=filled, fillcolor=black, label="", width=0.22];
+  fin [shape=doublecircle, style=filled, fillcolor=black, label="", width=0.16];
+
+  vivo [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Vivo</B><BR/><FONT POINT-SIZE="10">en el hato · puede ser padre/madre</FONT>>];
+  vend [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Vendido</B><BR/><FONT POINT-SIZE="10">baja lógica · conserva genealogía</FONT>>];
+  muer [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, fillcolor="#F6DADA", color="#9B2C2C", label=<<B>Muerto</B><BR/><FONT POINT-SIZE="10">baja lógica · conserva genealogía</FONT>>];
+  ini -> vivo [label="Criador registra el animal\n/ fecha_estado = ahora"];
+  vivo -> vend [label="cambio de estado con motivo\n(o DELETE) / fecha_estado"];
+  vivo -> muer [label="cambio de estado con motivo\n/ fecha_estado"];
+  vend -> vivo [label="corrección / fecha_estado", style=dashed];
+  muer -> vivo [label="corrección / fecha_estado", style=dashed];
+  vend -> fin; muer -> fin;
+  {rank=same; vend; muer}
+
+}

@@ -1,0 +1,124 @@
+== [root] Roles creados
++-------------+
+| rol         |
++-------------+
+| rol_app     |
+| rol_dba     |
+| rol_lectura |
++-------------+
+
+
+== [root] SHOW GRANTS wawapacocha_app
++------------------------------------------------------------------------------------------+
+| Grants for wawapacocha_app@localhost                                                     |
++------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `wawapacocha_app`@`localhost`                                      |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `wawapacocha`.* TO `wawapacocha_app`@`localhost` |
+| GRANT `rol_app`@`%` TO `wawapacocha_app`@`localhost`                                     |
++------------------------------------------------------------------------------------------+
+
+
+== [root] SHOW GRANTS wawapacocha_readonly
++---------------------------------------------------------------------------------+
+| Grants for wawapacocha_readonly@localhost                                       |
++---------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `wawapacocha_readonly`@`localhost`                        |
+| GRANT SELECT ON `wawapacocha`.* TO `wawapacocha_readonly`@`localhost`           |
+| GRANT SELECT ON `wawapacocha_auditoria`.* TO `wawapacocha_readonly`@`localhost` |
+| GRANT `rol_lectura`@`%` TO `wawapacocha_readonly`@`localhost`                   |
++---------------------------------------------------------------------------------+
+
+
+== [root] SHOW GRANTS wawapacocha_admin
++------------------------------------------------------------------------------+
+| Grants for wawapacocha_admin@localhost                                       |
++------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `wawapacocha_admin`@`localhost`                        |
+| GRANT ALL PRIVILEGES ON `wawapacocha`.* TO `wawapacocha_admin`@`localhost`   |
+| GRANT SELECT ON `wawapacocha_auditoria`.* TO `wawapacocha_admin`@`localhost` |
+| GRANT `rol_dba`@`%` TO `wawapacocha_admin`@`localhost`                       |
++------------------------------------------------------------------------------+
+
+
+== [lectura] Lectura: SELECT permitido
++----------+
+| animales |
++----------+
+|    20009 |
++----------+
+
+
+== [lectura] Lectura: INSERT denegado
+
+ERROR 1142 (42000) at line 1: INSERT command denied to user 'wawapacocha_readonly'@'localhost' for table 'razas'
+
+== [app] App: DROP denegado
+
+ERROR 1142 (42000) at line 1: DROP command denied to user 'wawapacocha_app'@'localhost' for table 'razas'
+
+== [app] App: lectura de auditoría denegada
+
+ERROR 1142 (42000) at line 1: SELECT command denied to user 'wawapacocha_app'@'localhost' for table 'auditoria'
+
+== [app] App: DML en transacción
++----+----------------+-------------+
+| id | sku            | precio_base |
++----+----------------+-------------+
+|  2 | CHOM-L-GRIS-SB |      194.25 |
+|  3 | CHOM-M-CREMA-B |      173.25 |
+|  1 | CHOM-M-GRIS-SB |      194.25 |
++----+----------------+-------------+
++-------------------+
+| imagenes_borradas |
++-------------------+
+|                 0 |
++-------------------+
++----+----------------+-------------+
+| id | sku            | precio_base |
++----+----------------+-------------+
+|  2 | CHOM-L-GRIS-SB |      185.00 |
+|  3 | CHOM-M-CREMA-B |      165.00 |
+|  1 | CHOM-M-GRIS-SB |      185.00 |
++----+----------------+-------------+
++-------+--------+---------+-----------------------------+----------------------------+
+| arete | nombre | estado  | motivo_estado               | fecha_estado               |
++-------+--------+---------+-----------------------------+----------------------------+
+| 1006  | Amaru  | VENDIDO | Vendido en feria de Juliaca | 2026-11-13 15:31:18.118181 |
++-------+--------+---------+-----------------------------+----------------------------+
+
+
+== [app] App: registra un animal
+
+
+
+== [app] App: baja del animal
+
+
+
+== [app] App: cancela un pedido pendiente
+
+
+
+== [dba] DBA: borrar auditoría denegado
+
+ERROR 1142 (42000) at line 1: DELETE command denied to user 'wawapacocha_admin'@'localhost' for table 'auditoria'
+
+== [lectura] Auditoría registrada (últimos 5 eventos)
++----+----------+-----------+-------------+--------------+----------------+---------------------------+---------------------+
+| id | tabla    | operacion | registro_id | estado_antes | estado_despues | usuario_bd                | fecha               |
++----+----------+-----------+-------------+--------------+----------------+---------------------------+---------------------+
+|  4 | pedidos  | UPDATE    |         338 | pendiente    | cancelado      | wawapacocha_app@localhost | 2026-11-13 15:31:18 |
+|  3 | animales | UPDATE    |       32777 | VIVO         | MUERTO         | wawapacocha_app@localhost | 2026-11-13 15:31:18 |
+|  2 | animales | INSERT    |       32777 | NULL         | VIVO           | wawapacocha_app@localhost | 2026-11-13 15:31:18 |
+|  1 | animales | UPDATE    |           6 | VIVO         | VENDIDO        | wawapacocha_app@localhost | 2026-11-13 15:31:18 |
++----+----------+-----------+-------------+--------------+----------------+---------------------------+---------------------+
+
+
+== [lectura] Auditoría por tabla y operación
++----------+-----------+---------+
+| tabla    | operacion | eventos |
++----------+-----------+---------+
+| animales | INSERT    |       1 |
+| animales | UPDATE    |       2 |
+| pedidos  | UPDATE    |       1 |
++----------+-----------+---------+

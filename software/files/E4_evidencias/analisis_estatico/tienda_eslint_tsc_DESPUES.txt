@@ -1,0 +1,4 @@
+$ npm run lint
+sin hallazgos
+$ npm run typecheck
+sin errores

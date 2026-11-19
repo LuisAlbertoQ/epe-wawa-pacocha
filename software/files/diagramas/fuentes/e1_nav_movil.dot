@@ -1,0 +1,36 @@
+digraph "e1_nav_movil" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.45, ranksep=0.55, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+  login [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Login</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">teléfono + contraseña</FONT></TD></TR></TABLE>>];
+  reg [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Registro</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">teléfono, nombre, contraseña</FONT></TD></TR></TABLE>>];
+  dash [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Dashboard</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">resumen del hato · barra inferior · franja de estado</FONT></TD></TR></TABLE>>];
+  sync [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Sincronización</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">pendientes, rechazados · Sincronizar ahora</FONT></TD></TR></TABLE>>];
+  lista [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="75" HEIGHT="160" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot1.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Animales</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">lista, filtros, búsqueda</FONT></TD></TR></TABLE>>];
+  form [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Formulario de animal</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">crear / editar · padres · alerta COI</FONT></TD></TR></TABLE>>];
+  coi [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Diálogo de consanguinidad</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">si COI ≥ 6,25 %: confirmar</FONT></TD></TR></TABLE>>];
+  det [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="75" HEIGHT="160" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot2.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Detalle del animal</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">datos, esquilas, acciones</FONT></TD></TR></TABLE>>];
+  arbol [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="75" HEIGHT="160" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot3.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Árbol genealógico</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">hasta 3 generaciones</FONT></TD></TR></TABLE>>];
+  esq [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Hoja de esquila</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">número, fecha, peso, mecha</FONT></TD></TR></TABLE>>];
+  ana [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Hoja de análisis de fibra</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">DMF, CV, DE, confort, curvatura</FONT></TD></TR></TABLE>>];
+  rep [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Reportes</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">CSV / PDF · compartir</FONT></TD></TR></TABLE>>];
+  per [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Perfil</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">datos del usuario · cerrar sesión</FONT></TD></TR></TABLE>>];
+  login -> reg [label="crear cuenta", dir=both];
+  login -> dash [label="JWT válido o sesión guardada"];
+  dash -> lista [label="pestaña Animales"];
+  dash -> rep [label="pestaña Reportes"];
+  dash -> per [label="pestaña Perfil"];
+  dash -> sync [label="franja de estado"];
+  per -> sync [label="Sincronización"];
+  lista -> form [label="botón +"];
+  lista -> det [label="tocar animal"];
+  det -> form [label="editar"];
+  det -> arbol [label="ver árbol"];
+  det -> esq [label="registrar esquila"];
+  esq -> ana [label="análisis (por esquila)"];
+  form -> coi [label="al guardar", style=dashed];
+  per -> login [label="cerrar sesión", style=dashed, constraint=false];
+  {rank=same; lista; rep; per}
+  {rank=same; form; det}
+
+}

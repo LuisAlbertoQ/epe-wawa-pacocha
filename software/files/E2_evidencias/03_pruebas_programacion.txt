@@ -1,0 +1,103 @@
+== CALL sp_resumen_animales()
+CALL sp_resumen_animales();
++-------------------+-------+----------+---------+---------------+--------------+--------------+
+| total_registrados | vivos | vendidos | muertos | alpacas_vivas | llamas_vivas | ovinos_vivos |
++-------------------+-------+----------+---------+---------------+--------------+--------------+
+|                 9 |     7 |        1 |       1 |             6 |            1 |            0 |
++-------------------+-------+----------+---------+---------------+--------------+--------------+
+
+
+== Funciones
+SELECT fn_animales_vivos() AS vivos, fn_precio_vigente(1) AS precio_v1, fn_stock_disponible(1) AS disponible_v1;
++-------+-----------+---------------+
+| vivos | precio_v1 | disponible_v1 |
++-------+-----------+---------------+
+|     7 |    185.00 |             4 |
++-------+-----------+---------------+
+
+
+== Antes de confirmar
+SELECT id, sku, stock, stock_reservado FROM variantes_producto WHERE id IN (1,4);
++----+----------------+-------+-----------------+
+| id | sku            | stock | stock_reservado |
++----+----------------+-------+-----------------+
+|  1 | CHOM-M-GRIS-SB |     6 |               2 |
+|  4 | BUF-U-NAT-B    |    10 |               1 |
++----+----------------+-------+-----------------+
+
+
+== CALL sp_confirmar_pago(1, 1)
+CALL sp_confirmar_pago(1, 1); SELECT p.codigo, p.estado AS pedido, pg.estado AS pago FROM pedidos p JOIN pagos pg ON pg.pedido_id = p.id WHERE p.id = 1; SELECT id, sku, stock, stock_reservado FROM variantes_producto WHERE id IN (1,4);
++----------+--------+------------+
+| codigo   | pedido | pago       |
++----------+--------+------------+
+| WP-00001 | pagado | confirmado |
++----------+--------+------------+
++----+----------------+-------+-----------------+
+| id | sku            | stock | stock_reservado |
++----+----------------+-------+-----------------+
+|  1 | CHOM-M-GRIS-SB |     4 |               0 |
+|  4 | BUF-U-NAT-B    |     9 |               0 |
++----+----------------+-------+-----------------+
+
+
+== CALL sp_confirmar_pago(1, 1) repetido
+CALL sp_confirmar_pago(1, 1);
+
+ERROR 1644 (45000) at line 1: El pedido no está pendiente de confirmación
+
+== tg_reservar_stock: cantidad 5 (disponible 2)
+SELECT fn_stock_disponible(3) AS disponible_v3; INSERT INTO detalle_pedido (cantidad, precio_unitario, pedido_id, variante_id) VALUES (5, 120.00, 5, 3);
++---------------+
+| disponible_v3 |
++---------------+
+|             2 |
++---------------+
+ERROR 1644 (45000) at line 1: Stock insuficiente para la variante solicitada
+
+== tg_reservar_stock: cantidad 1
+INSERT INTO detalle_pedido (cantidad, precio_unitario, pedido_id, variante_id) VALUES (1, 120.00, 5, 3); SELECT id, sku, stock, stock_reservado FROM variantes_producto WHERE id = 3;
++----+----------------+-------+-----------------+
+| id | sku            | stock | stock_reservado |
++----+----------------+-------+-----------------+
+|  3 | CHOM-M-CREMA-B |     3 |               2 |
++----+----------------+-------+-----------------+
+
+
+== CALL sp_liberar_reservas_vencidas()
+CALL sp_liberar_reservas_vencidas(); SELECT codigo, estado FROM pedidos WHERE id = 5; SELECT id, sku, stock_reservado FROM variantes_producto WHERE id = 3;
++--------------------+
+| pedidos_cancelados |
++--------------------+
+|                  1 |
++--------------------+
++----------+-----------+
+| codigo   | estado    |
++----------+-----------+
+| WP-00005 | cancelado |
++----------+-----------+
++----+----------------+-----------------+
+| id | sku            | stock_reservado |
++----+----------------+-----------------+
+|  3 | CHOM-M-CREMA-B |               0 |
++----+----------------+-----------------+
+
+
+== CALL sp_marcar_entregado(1) primera vez
+CALL sp_marcar_entregado(1); SELECT codigo, estado FROM pedidos WHERE id = 1;
++----------+-----------+
+| codigo   | estado    |
++----------+-----------+
+| WP-00001 | entregado |
++----------+-----------+
+
+
+== CALL sp_marcar_entregado(1) segunda vez
+CALL sp_marcar_entregado(1);
+
+ERROR 1644 (45000) at line 1: Solo se puede entregar un pedido en estado pagado
+
+== tg_pago_confirmado_inmutable
+UPDATE pagos SET estado = 'pendiente' WHERE id = 1;
+
+ERROR 1644 (45000) at line 1: Un pago confirmado no puede cambiar de estado

@@ -1,0 +1,25 @@
+== Q7 — Sincronización incremental (cambios del último día)
+SELECT id, uid, arete, estado, updated_at FROM animales WHERE updated_at > NOW() - INTERVAL 1 DAY ORDER BY updated_at
+-- ANTES (sin índice)
+-> Sort: animales.updated_at  (cost=719.55 rows=19901) (actual time=5.695..5.697 rows=41 loops=1)
+    -> Filter: (animales.updated_at > <cache>((now() - interval 1 day)))  (cost=719.55 rows=19901) (actual time=0.186..5.665 rows=41 loops=1)
+        -> Table scan on animales  (cost=719.55 rows=19901) (actual time=0.039..4.997 rows=20010 loops=1)
+-- DESPUÉS (con índice)
+-> Index range scan on animales using idx_animales_updated over ('2026-11-12 15:31:23.000000' < updated_at), with index condition: (animales.updated_at > <cache>((now() - interval 1 day)))  (cost=18.71 rows=41) (actual time=0.023..0.341 rows=41 loops=1)
+
+== Q15/Q17 — Pedidos pendientes, del más reciente al más antiguo
+SELECT codigo, cliente_nombre, created_at FROM pedidos WHERE estado = 'pendiente' ORDER BY created_at DESC
+-- ANTES (sin índice)
+-> Sort: pedidos.created_at DESC  (cost=501.80 rows=4938) (actual time=1.254..1.255 rows=14 loops=1)
+    -> Filter: (pedidos.estado = 'pendiente')  (cost=501.80 rows=4938) (actual time=0.190..1.239 rows=14 loops=1)
+        -> Table scan on pedidos  (cost=501.80 rows=4938) (actual time=0.030..1.020 rows=5005 loops=1)
+-- DESPUÉS (con índice)
+-> Index lookup on pedidos using idx_pedidos_estado_fecha (estado='pendiente')  (cost=4.90 rows=14) (actual time=0.049..0.052 rows=14 loops=1)
+
+== Q2 — Búsqueda exacta por arete
+SELECT id, arete, nombre, estado FROM animales WHERE arete = 'S012345'
+-- ANTES (sin índice)
+-> Filter: (animales.arete = 'S012345')  (cost=2046.35 rows=1990) (actual time=3.532..6.274 rows=1 loops=1)
+    -> Table scan on animales  (cost=2046.35 rows=19901) (actual time=0.068..5.091 rows=20010 loops=1)
+-- DESPUÉS (con índice)
+-> Rows fetched before execution  (cost=0.00..0.00 rows=1) (actual time=0.000..0.000 rows=1 loops=1)

@@ -1,0 +1,1938 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Evaluación de Perfil de Egreso — Ingeniería de Sistemas (UPeU) — Sistema Wawa Pacocha">
+      
+      
+      
+        <link rel="canonical" href="https://LuisAlbertoQ.github.io/epe-wawa-pacocha/software/files/Diagramas_Mermaid.html">
+      
+      
+        <link rel="prev" href="../presentacion.html">
+      
+      
+        <link rel="next" href="../recursos.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Diagramas Mermaid - EPE — Wawa Pacocha</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#diagramas-del-proyecto-wawa-pacocha-codigo-mermaid" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../index.html" title="EPE — Wawa Pacocha" class="md-header__button md-logo" aria-label="EPE — Wawa Pacocha" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EPE — Wawa Pacocha
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Diagramas Mermaid
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+  Software
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../gestion/index.html" class="md-tabs__link">
+          
+  
+  
+  Gestión de TI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../infraestructura/index.html" class="md-tabs__link">
+          
+  
+  
+  Infraestructura
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="EPE — Wawa Pacocha" class="md-nav__button md-logo" aria-label="EPE — Wawa Pacocha" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    EPE — Wawa Pacocha
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Software
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../e1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E1 · Definición del Sistema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../e2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E2 · Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../e3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E3 · Sistema Integrado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../e4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E4 · Gestión de Calidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../presentacion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas Mermaid
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Diagramas_Mermaid.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas Mermaid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-2-diagrama-entidadrelacion-er" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 2 — Diagrama Entidad–Relación (ER)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-arquitectura-estilo-c4-contexto-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Arquitectura (estilo C4: contexto + contenedores)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Casos de Uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-clases-modulo-ganaderia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Clases (Módulo Ganadería)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-clases-modulo-tienda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Clases (Módulo Tienda)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-sincronizacion-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Sincronización Offline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-compra-y-pago-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Compra y Pago Manual
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-trazabilidad-del-producto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Trazabilidad del Producto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ENTREGABLE 1 — Secuencia: Trazabilidad del Producto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-exportarlos-como-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo exportarlos como imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recursos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursos y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de TI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestión de TI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/e1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E1 · Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/e2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E2 · Business Case
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/e3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E3 · Plan de Gestión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/e4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E4 · Modelado de Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gestion/e5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E5 · Propuesta TIC Integrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infraestructura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Infraestructura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/s1e1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S1 E1 · Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/s1e2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S1 E2 · Centro de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/s2e1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 E1 · SGSI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/s2e2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 E2 · Monitoreo de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/s2e3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S2 E3 · Centro de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infraestructura/recursos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursos y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-2-diagrama-entidadrelacion-er" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 2 — Diagrama Entidad–Relación (ER)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-arquitectura-estilo-c4-contexto-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Arquitectura (estilo C4: contexto + contenedores)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Casos de Uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-clases-modulo-ganaderia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Clases (Módulo Ganadería)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-clases-modulo-tienda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Clases (Módulo Tienda)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-sincronizacion-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Sincronización Offline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-compra-y-pago-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Compra y Pago Manual
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entregable-1-secuencia-trazabilidad-del-producto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENTREGABLE 1 — Secuencia: Trazabilidad del Producto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ENTREGABLE 1 — Secuencia: Trazabilidad del Producto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-exportarlos-como-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo exportarlos como imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="diagramas-del-proyecto-wawa-pacocha-codigo-mermaid">Diagramas del proyecto — Wawa Pacocha (código Mermaid)<a class="headerlink" href="#diagramas-del-proyecto-wawa-pacocha-codigo-mermaid" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Pégalos en https://mermaid.live para verlos y exportarlos como <strong>PNG</strong> o <strong>SVG</strong> (alta resolución).
+Luego se pueden insertar en los entregables E1 y E2.</p>
+<p>Actualizados según el MVP real: backend Django REST, app Flutter (offline-first), tienda Next.js, MySQL 8.</p>
+</blockquote>
+<hr />
+<h2 id="entregable-2-diagrama-entidadrelacion-er">ENTREGABLE 2 — Diagrama Entidad–Relación (ER)<a class="headerlink" href="#entregable-2-diagrama-entidadrelacion-er" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Modelo de datos completo (31 tablas) del sistema Wawa Pacocha.</p>
+</blockquote>
+<p><img alt="Diagrama 1" src="diagramas/mermaid_1.png" /></p>
+<pre class="mermaid"><code>erDiagram
+    usuarios ||--o{ animales : registra
+    animales ||--o{ producciones : produce
+    animales ||--o{ animales : "padre/madre"
+    animales ||--o{ fotos_animal : tiene
+    animales ||--o{ animales_en_venta : "se ofrece"
+    animales ||--o{ lotes : "origen fibra"
+    producciones ||--|| analisis_fibra : tiene
+    producciones ||--o{ lotes : "origen fibra"
+    artesanos ||--o{ productos : confecciona
+    lotes ||--o{ procesos_lote : tiene
+    lotes ||--o{ productos : origina
+    productos ||--o{ imagenes_producto : tiene
+    productos ||--o{ variantes_producto : tiene
+    variantes_producto ||--o{ precios_temporada : tiene
+    variantes_producto ||--o{ detalle_pedido : aparece
+    pedidos ||--o{ detalle_pedido : agrupa
+    pedidos ||--|| pagos : tiene
+    usuarios ||--o{ pagos : confirma
+
+    usuarios {
+        bigint id PK
+        varchar username UK
+        varchar telefono UK
+        varchar rol
+        tinyint is_staff
+        tinyint is_active
+    }
+    razas {
+        bigint id PK
+        varchar nombre
+        varchar especie
+    }
+    animales {
+        bigint id PK
+        char uid UK
+        varchar arete UK
+        varchar especie
+        varchar sexo
+        varchar raza
+        varchar estado
+        varchar sync_status
+        bigint usuario_id FK
+        bigint padre_id FK
+        bigint madre_id FK
+    }
+    fotos_animal {
+        bigint id PK
+        varchar imagen
+        smallint orden
+        bigint animal_id FK
+    }
+    producciones {
+        bigint id PK
+        char uid UK
+        date fecha_esquila
+        decimal peso_vellon_lb
+        decimal longitud_mecha_cm
+        varchar sync_status
+        bigint animal_id FK
+    }
+    analisis_fibra {
+        bigint id PK
+        decimal dmf
+        decimal cv
+        decimal factor_confort
+        bigint produccion_id FK
+    }
+    animales_en_venta {
+        bigint id PK
+        decimal precio
+        varchar proposito
+        varchar estado
+        tinyint destacado
+        bigint animal_id FK
+    }
+    artesanos {
+        bigint id PK
+        varchar nombre
+        varchar localidad
+        tinyint activo
+    }
+    lotes {
+        bigint id PK
+        varchar codigo_lote UK
+        varchar tipo_fibra
+        decimal cantidad_kg
+        bigint animal_id FK
+        bigint produccion_id FK
+    }
+    procesos_lote {
+        bigint id PK
+        varchar etapa
+        smallint orden_secuencia
+        date fecha_proceso
+        bigint lote_id FK
+    }
+    productos {
+        bigint id PK
+        varchar nombre
+        varchar slug UK
+        varchar categoria
+        varchar unidad_venta
+        tinyint destacado
+        bigint artesano_id FK
+        bigint lote_id FK
+    }
+    imagenes_producto {
+        bigint id PK
+        varchar imagen_url
+        smallint orden
+        bigint producto_id FK
+    }
+    variantes_producto {
+        bigint id PK
+        varchar sku UK
+        varchar talla
+        varchar color
+        varchar tipo_prenda
+        decimal precio_base
+        int stock
+        int stock_reservado
+        bigint producto_id FK
+    }
+    precios_temporada {
+        bigint id PK
+        varchar nombre_temporada
+        decimal precio_especial
+        date fecha_inicio
+        date fecha_fin
+        tinyint activo
+        bigint variante_id FK
+    }
+    pedidos {
+        bigint id PK
+        varchar codigo UK
+        varchar cliente_nombre
+        varchar cliente_contacto
+        varchar estado
+        decimal total
+    }
+    detalle_pedido {
+        bigint id PK
+        int cantidad
+        decimal precio_unitario
+        bigint pedido_id FK
+        bigint variante_id FK
+    }
+    pagos {
+        bigint id PK
+        varchar metodo
+        varchar estado
+        varchar comprobante_imagen
+        varchar huella_comprobante
+        bigint pedido_id FK
+        bigint confirmado_por_id FK
+    }
+    eventos_feria {
+        bigint id PK
+        varchar titulo
+        date fecha_evento
+        varchar ubicacion
+        tinyint activo
+    }
+    publicaciones {
+        bigint id PK
+        varchar titulo
+        varchar fuente
+        date fecha
+        tinyint activo
+    }</code></pre>
+<hr />
+<h2 id="entregable-1-arquitectura-estilo-c4-contexto-contenedores">ENTREGABLE 1 — Arquitectura (estilo C4: contexto + contenedores)<a class="headerlink" href="#entregable-1-arquitectura-estilo-c4-contexto-contenedores" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 2" src="diagramas/mermaid_2.png" /></p>
+<pre class="mermaid"><code>flowchart TB
+    subgraph Personas
+        Criador["Criador / Veterinario"]
+        Admin["Administrador"]
+        Comprador["Comprador"]
+    end
+    subgraph Contenedores
+        Nginx["Nginx (reverse proxy)"]
+        App["App Movil (Flutter, offline-first, SQLite)"]
+        Web["Tienda Web (Next.js / React)"]
+        Backoffice["Backoffice (Admin de Django)"]
+        API["API REST (Django REST Framework)"]
+        DB[("Base de Datos MySQL 8")]
+    end
+    Criador --&gt; App
+    Comprador --&gt; Web
+    Admin --&gt; Backoffice
+    App --&gt;|JSON/HTTPS + JWT| Nginx
+    Web --&gt;|JSON/HTTPS| Nginx
+    Nginx --&gt;|/api, /admin, /static| API
+    Nginx --&gt;|resto| Web
+    API --&gt;|ORM/SQL| DB
+    Backoffice --&gt;|ORM| DB</code></pre>
+<hr />
+<h2 id="entregable-1-casos-de-uso">ENTREGABLE 1 — Casos de Uso<a class="headerlink" href="#entregable-1-casos-de-uso" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 3" src="diagramas/mermaid_3.png" /></p>
+<pre class="mermaid"><code>flowchart LR
+    Criador(["Criador"])
+    Vet(["Veterinario"])
+    Admin(["Administrador"])
+    Comp(["Comprador"])
+
+    Criador --- U1((Registrar animal))
+    Criador --- U2((Ver arbol genealogico))
+    Criador --- U3((Sincronizar datos offline))
+    Criador --- U4((Registrar esquila))
+    Criador --- U5((Analizar fibra))
+    Criador --- U6((Exportar reportes))
+    Vet --- U1
+    Vet --- U2
+    Vet --- U4
+    Vet --- U5
+    Admin --- U7((Gestionar roles y permisos))
+    Admin --- U8((Confirmar pago))
+    Admin --- U9((Gestionar catalogo y precios))
+    Admin --- U10((Gestionar animales en venta))
+    Admin --- U11((Gestionar contenido web))
+    Admin --- U12((Publicar eventos y noticias))
+    Comp --- U13((Consultar catalogo))
+    Comp --- U14((Ver trazabilidad del producto))
+    Comp --- U15((Agregar al carrito))
+    Comp --- U16((Generar pedido))
+    Comp --- U17((Subir comprobante))</code></pre>
+<hr />
+<h2 id="entregable-1-clases-modulo-ganaderia">ENTREGABLE 1 — Clases (Módulo Ganadería)<a class="headerlink" href="#entregable-1-clases-modulo-ganaderia" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 4" src="diagramas/mermaid_4.png" /></p>
+<pre class="mermaid"><code>classDiagram
+    class Usuario {
+        +BigInt id
+        +String username
+        +String telefono
+        +Enum rol
+        +Bool is_staff
+        +Bool is_active
+        +es_admin() Bool
+    }
+    class Raza {
+        +BigInt id
+        +String nombre
+        +Enum especie
+    }
+    class Animal {
+        +BigInt id
+        +UUID uid
+        +String arete
+        +Enum especie
+        +Enum sexo
+        +String raza
+        +Date fecha_nacimiento
+        +Decimal peso_nacimiento_kg
+        +Decimal longitud_mecha_nacimiento_cm
+        +Enum estado
+        +String sync_status
+        +Bool activo
+        +verificar_padres() void
+    }
+    class FotoAnimal {
+        +BigInt id
+        +String imagen
+        +String descripcion
+        +Int orden
+    }
+    class Produccion {
+        +BigInt id
+        +UUID uid
+        +Date fecha_esquila
+        +Int numero_esquila
+        +Decimal peso_vellon_lb
+        +Decimal longitud_mecha_cm
+        +String sync_status
+    }
+    class AnalisisFibra {
+        +BigInt id
+        +Decimal dmf
+        +Decimal cv
+        +Decimal desviacion_estandar
+        +Decimal factor_confort
+        +Decimal indice_curvatura
+        +Date fecha_analisis
+    }
+    Usuario "1" --&gt; "N" Animal : registra
+    Raza "1" --&gt; "N" Animal : clasifica
+    Animal "0..1" --&gt; "N" Animal : padre/madre
+    Animal "1" --&gt; "N" FotoAnimal : tiene
+    Animal "1" --&gt; "N" Produccion : produce
+    Produccion "1" --&gt; "1" AnalisisFibra : tiene</code></pre>
+<hr />
+<h2 id="entregable-1-clases-modulo-tienda">ENTREGABLE 1 — Clases (Módulo Tienda)<a class="headerlink" href="#entregable-1-clases-modulo-tienda" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 5" src="diagramas/mermaid_5.png" /></p>
+<pre class="mermaid"><code>classDiagram
+    class Artesano {
+        +BigInt id
+        +String nombre
+        +String localidad
+        +Bool activo
+    }
+    class Lote {
+        +BigInt id
+        +String codigo_lote
+        +Enum tipo_fibra
+        +Decimal cantidad_kg
+        +Date fecha_ingreso
+    }
+    class ProcesoLote {
+        +BigInt id
+        +Enum etapa
+        +Int orden_secuencia
+        +Date fecha_proceso
+    }
+    class Producto {
+        +BigInt id
+        +String nombre
+        +String slug
+        +Enum categoria
+        +String unidad_venta
+        +Bool destacado
+        +Bool activo
+    }
+    class ImagenProducto {
+        +BigInt id
+        +String imagen_url
+        +Int orden
+    }
+    class VarianteProducto {
+        +BigInt id
+        +String sku
+        +String talla
+        +String color
+        +String tipo_prenda
+        +Decimal precio_base
+        +Int stock
+        +Int stock_reservado
+    }
+    class PrecioTemporada {
+        +BigInt id
+        +String nombre_temporada
+        +Decimal precio_especial
+        +Date fecha_inicio
+        +Date fecha_fin
+        +Bool activo
+    }
+    class Pedido {
+        +BigInt id
+        +String codigo
+        +String cliente_nombre
+        +String cliente_contacto
+        +Enum estado
+        +Decimal total
+    }
+    class DetallePedido {
+        +BigInt id
+        +Int cantidad
+        +Decimal precio_unitario
+    }
+    class Pago {
+        +BigInt id
+        +Enum metodo
+        +Enum estado
+        +String comprobante_imagen
+        +String huella_comprobante
+    }
+    class AnimalEnVenta {
+        +BigInt id
+        +Decimal precio
+        +Enum proposito
+        +Enum estado
+        +Bool destacado
+    }
+    class EventoFeria {
+        +BigInt id
+        +String titulo
+        +Date fecha_evento
+        +String ubicacion
+        +Bool activo
+    }
+    class Publicacion {
+        +BigInt id
+        +String titulo
+        +Enum fuente
+        +Date fecha
+        +Bool activo
+    }
+    class ConfiguracionTienda {
+        +BigInt id
+        +String nombre_tienda
+        +String hero_titulo
+        +String telefono_yape
+        +String telefono_plin
+        +Int horas_reserva
+    }
+    Lote "1" --&gt; "N" ProcesoLote
+    Lote "1" --&gt; "N" Producto
+    Artesano "1" --&gt; "N" Producto
+    Producto "1" --&gt; "N" ImagenProducto
+    Producto "1" --&gt; "N" VarianteProducto
+    VarianteProducto "1" --&gt; "N" PrecioTemporada
+    VarianteProducto "1" --&gt; "N" DetallePedido
+    Pedido "1" --&gt; "N" DetallePedido
+    Pedido "1" --&gt; "1" Pago
+    Animal "1" --&gt; "0..1" AnimalEnVenta : se ofrece</code></pre>
+<hr />
+<h2 id="entregable-1-secuencia-sincronizacion-offline">ENTREGABLE 1 — Secuencia: Sincronización Offline<a class="headerlink" href="#entregable-1-secuencia-sincronizacion-offline" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 6" src="diagramas/mermaid_6.png" /></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant App as App Movil
+    participant API as API REST
+    participant DB as Base de Datos
+    Note over App: usuario sin conexion
+    App-&gt;&gt;App: registra animal (SQLite, sync_status=PEN)
+    Note over App: recupera internet
+    App-&gt;&gt;API: POST /sync/ {last_sync, changes[]}
+    API-&gt;&gt;DB: UPSERT animales, producciones, analisis
+    DB--&gt;&gt;API: OK
+    API-&gt;&gt;DB: SELECT updated_at &gt; last_sync
+    DB--&gt;&gt;API: server_changes
+    API--&gt;&gt;App: {server_changes, sync_timestamp}
+    App-&gt;&gt;App: actualiza SQLite (sync_status=SINC)</code></pre>
+<hr />
+<h2 id="entregable-1-secuencia-compra-y-pago-manual">ENTREGABLE 1 — Secuencia: Compra y Pago Manual<a class="headerlink" href="#entregable-1-secuencia-compra-y-pago-manual" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 7" src="diagramas/mermaid_7.png" /></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Comprador (Web)
+    participant API as API REST (tienda)
+    participant A as Administrador
+    C-&gt;&gt;API: agrega al carrito / valida stock
+    API--&gt;&gt;C: stock OK
+    C-&gt;&gt;API: POST /pedidos/ (crea Pedido pendiente, reserva stock)
+    API--&gt;&gt;C: codigo WP-#####
+    Note over C: paga por Yape/Plin (fuera del sistema)
+    C-&gt;&gt;API: POST /pedidos/{id}/comprobante/
+    API--&gt;&gt;C: comprobante recibido
+    API-&gt;&gt;A: notifica pedido nuevo
+    A-&gt;&gt;A: revisa comprobante
+    A-&gt;&gt;API: PATCH /pagos/{id}/ confirmar
+    API-&gt;&gt;API: Pago=confirmado, Pedido=pagado, descuenta stock
+    API--&gt;&gt;C: pedido confirmado</code></pre>
+<hr />
+<h2 id="entregable-1-secuencia-trazabilidad-del-producto">ENTREGABLE 1 — Secuencia: Trazabilidad del Producto<a class="headerlink" href="#entregable-1-secuencia-trazabilidad-del-producto" title="Permanent link">&para;</a></h2>
+<p><img alt="Diagrama 8" src="diagramas/mermaid_8.png" /></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Comprador (Web)
+    participant API as API REST (tienda)
+    participant DB as Base de Datos
+    C-&gt;&gt;API: GET /productos/{slug}/trazabilidad/
+    API-&gt;&gt;DB: Producto -&gt; Variante -&gt; Lote -&gt; Animal, Produccion, AnalisisFibra, ProcesosLote
+    DB--&gt;&gt;API: datos de trazabilidad
+    API--&gt;&gt;C: ficha con DMF, CV, factor confort, procesos y animal de origen</code></pre>
+<hr />
+<h3 id="como-exportarlos-como-imagen">Cómo exportarlos como imagen<a class="headerlink" href="#como-exportarlos-como-imagen" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Entra a https://mermaid.live</li>
+<li>Pega un bloque de código (sin los ``` de arriba y abajo).</li>
+<li>Menú <strong>Actions → PNG</strong> (o SVG) para descargar la imagen en alta resolución.</li>
+<li>Esa imagen se puede insertar en el entregado correspondiente.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "search.highlight"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

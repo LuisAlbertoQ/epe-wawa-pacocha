@@ -1,0 +1,45 @@
+digraph "e1_componentes" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.35, ranksep=0.55, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  compound=true;
+  node [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864"];
+  subgraph cluster_cli { label=<<B>Capa cliente</B>>; style="rounded,dashed"; color="#7F9CC7";
+    app [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>App móvil GeneApp</B><BR/><FONT POINT-SIZE="10">Flutter 3.29 · Riverpod · GoRouter · Dio</FONT><BR/><FONT POINT-SIZE="10">SQLite local (sqflite) + cola de sincronización</FONT>>];
+    nav [label=<<FONT POINT-SIZE="9" COLOR="#555555">«cliente web»</FONT><BR/><B>Navegador del comprador</B><BR/><FONT POINT-SIZE="10">tienda pública, sin cuenta</FONT>>];
+    navadm [label=<<FONT POINT-SIZE="9" COLOR="#555555">«cliente web»</FONT><BR/><B>Navegador del Administrador</B><BR/><FONT POINT-SIZE="10">panel de administración</FONT>>];
+  }
+  subgraph cluster_srv { label=<<B>Servidor en la nube (Docker Compose)</B>>; style=rounded; color="#5B9B5F"; bgcolor="#F7FBF7";
+    nginx [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>Nginx</B><BR/><FONT POINT-SIZE="10">proxy reverso · SSL · /static</FONT><BR/><FONT POINT-SIZE="10">/media público (fotos)</FONT><BR/><FONT POINT-SIZE="10">comprobantes: ubicación interna</FONT>>, fillcolor="#E3F1E4", color="#2E6B33"];
+    next [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>Tienda web</B><BR/><FONT POINT-SIZE="10">Next.js 15 · React 19 · Tailwind 4</FONT><BR/><FONT POINT-SIZE="10">SSR + SEO · carrito persistente</FONT>>, fillcolor="#E3F1E4", color="#2E6B33"];
+    subgraph cluster_dj { label=<<B>Backend Django 4.2 + Gunicorn</B>>; style=rounded; color="#2E6B33"; bgcolor="#EEF7EE";
+      api [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>API REST /api/v1</B><BR/><FONT POINT-SIZE="10">Django REST Framework</FONT><BR/><FONT POINT-SIZE="10">SimpleJWT · límites de peticiones</FONT>>, fillcolor="#E3F1E4", color="#2E6B33"];
+      adm [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>Panel de administración</B><BR/><FONT POINT-SIZE="10">Django Admin + django-unfold</FONT><BR/><FONT POINT-SIZE="10">backoffice del Administrador</FONT>>, fillcolor="#E3F1E4", color="#2E6B33"];
+      docs [label=<<FONT POINT-SIZE="9" COLOR="#555555">«componente»</FONT><BR/><B>Documentación API</B><BR/><FONT POINT-SIZE="10">drf-spectacular · /api/docs</FONT>>, fillcolor="#E3F1E4", color="#2E6B33"];
+      usr [shape=component, label=<<B>app usuarios</B><BR/><FONT POINT-SIZE="10">autenticación · roles</FONT>>, fillcolor="#FCEFD9", color="#8A5A00", style=filled];
+      ani [shape=component, label=<<B>app animales</B><BR/><FONT POINT-SIZE="10">animales · esquilas · análisis</FONT><BR/><FONT POINT-SIZE="10">árbol · consanguinidad · /sync/ · reportes</FONT>>, fillcolor="#FCEFD9", color="#8A5A00", style=filled];
+      tie [shape=component, label=<<B>app tienda</B><BR/><FONT POINT-SIZE="10">catálogo · trazabilidad · pedidos</FONT><BR/><FONT POINT-SIZE="10">pagos · ferias · contenido (CMS)</FONT>>, fillcolor="#FCEFD9", color="#8A5A00", style=filled];
+      cmd [shape=component, label=<<B>Comandos programados</B><BR/><FONT POINT-SIZE="10">caducar_pedidos · respaldar</FONT>>, fillcolor="#FCEFD9", color="#8A5A00", style=filled];
+    }
+    db [shape=cylinder, label=<<B>MySQL 8</B><BR/><FONT POINT-SIZE="10">base wawapacocha</FONT>>, fillcolor="#FFE0B2", color="#B26A00", style=filled];
+    media [shape=folder, label=<<B>Almacenamiento media</B><BR/><FONT POINT-SIZE="10">fotos (públicas)</FONT><BR/><FONT POINT-SIZE="10">comprobantes (privados)</FONT>>, fillcolor="#FFE0B2", color="#B26A00", style=filled];
+  }
+  app -> nginx [label="HTTPS · JSON + JWT\n/api/v1 · /sync/"];
+  nav -> nginx [label="HTTPS"];
+  navadm -> nginx [label="HTTPS · sesión"];
+  nginx -> next [label="/"];
+  nginx -> api [label="/api"];
+  nginx -> adm [label="/admin"];
+  next -> api [label="SSR · JSON", style=dashed];
+  api -> usr; api -> ani; api -> tie; api -> docs [style=dashed, arrowhead=none];
+  adm -> usr [style=dashed, label="gestiona"]; adm -> ani [style=dashed]; adm -> tie [style=dashed];
+  cmd -> tie [style=dashed];
+  usr -> db; ani -> db [label="ORM"]; tie -> db;
+  tie -> media [style=dashed]; ani -> media [style=dashed];
+  {rank=same; app; nav; navadm}
+  {rank=same; api; adm; docs}
+  {rank=same; usr; ani; tie}
+  {rank=same; cmd; media; db}
+
+}

@@ -1,0 +1,43 @@
+digraph "e1_c4_c3_api" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.3, ranksep=0.45];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  compound=true;
+  app [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>App móvil</B><BR/><FONT POINT-SIZE="9">[Contenedor: Flutter]</FONT>>];
+  br [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>Navegador del Administrador</B><BR/><FONT POINT-SIZE="9">[Panel /admin]</FONT>>];
+  web [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>Tienda web</B><BR/><FONT POINT-SIZE="9">[Contenedor: Next.js]</FONT>>];
+  subgraph cluster_api { label=<<B>API REST + Panel</B><BR/><FONT POINT-SIZE="9">[Contenedor: Django 4.2 + DRF]</FONT>>; style="dashed"; color="#333333"; fontsize=13;
+    subgraph cluster_gan { label=<<B>Módulo ganadería</B> (apps usuarios y animales)>; style="rounded"; color="#5D99D6";
+      auth [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Autenticación</B><BR/><FONT POINT-SIZE="9">[usuarios.views + SimpleJWT]</FONT><BR/><FONT POINT-SIZE="10">register · login · refresh (rotación)</FONT><BR/><FONT POINT-SIZE="10">logout (lista negra) · perfil</FONT>>];
+      ani [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Animales y genealogía</B><BR/><FONT POINT-SIZE="9">[AnimalViewSet]</FONT><BR/><FONT POINT-SIZE="10">CRUD · árbol · candidatos</FONT><BR/><FONT POINT-SIZE="10">consanguinidad · resumen</FONT>>];
+      esq [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Esquilas y análisis</B><BR/><FONT POINT-SIZE="9">[ProduccionViewSet]</FONT><BR/><FONT POINT-SIZE="10">esquilas · análisis de fibra 1:1</FONT>>];
+      syn [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Sincronización</B><BR/><FONT POINT-SIZE="9">[SyncView  POST /sync/]</FONT><BR/><FONT POINT-SIZE="10">valida cada cambio (serializers)</FONT><BR/><FONT POINT-SIZE="10">procesados / rechazados · análisis</FONT>>];
+      rep [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Reportes</B><BR/><FONT POINT-SIZE="9">[ReporteView · ReporteProduccionView]</FONT><BR/><FONT POINT-SIZE="10">CSV y PDF (ReportLab)</FONT>>];
+      gen [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Cálculos genealógicos</B><BR/><FONT POINT-SIZE="9">[animales/utils.py]</FONT><BR/><FONT POINT-SIZE="10">calcular_coi · edad y categoría</FONT>>];
+    }
+    pan [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Panel de administración</B><BR/><FONT POINT-SIZE="9">[admin_site · admin · dashboard]</FONT><BR/><FONT POINT-SIZE="10">backoffice con django-unfold</FONT>>];
+    subgraph cluster_tie { label=<<B>Módulo tienda</B> (app tienda)>; style="rounded"; color="#5D99D6";
+      cat [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Catálogo público</B><BR/><FONT POINT-SIZE="9">[ProductoViewSet · FiltrosView]</FONT><BR/><FONT POINT-SIZE="10">ferias · animales en venta</FONT><BR/><FONT POINT-SIZE="10">artesanos · configuración</FONT>>];
+      ped [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Pedidos y pagos</B><BR/><FONT POINT-SIZE="9">[PedidoViewSet]</FONT><BR/><FONT POINT-SIZE="10">crear · consultar · buscar</FONT><BR/><FONT POINT-SIZE="10">comprobante · cancelar</FONT>>];
+      svc [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Servicios de pedido</B><BR/><FONT POINT-SIZE="9">[tienda/services.py]</FONT><BR/><FONT POINT-SIZE="10">reserva y descuento de stock,</FONT><BR/><FONT POINT-SIZE="10">confirmar / rechazar (transacción)</FONT>>];
+      cmd [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Comandos</B><BR/><FONT POINT-SIZE="9">[management/commands]</FONT><BR/><FONT POINT-SIZE="10">caducar_pedidos · respaldar</FONT>>];
+      cmp [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Vista de comprobantes</B><BR/><FONT POINT-SIZE="9">[PagoAdmin.ver_comprobante]</FONT><BR/><FONT POINT-SIZE="10">solo Administrador</FONT><BR/><FONT POINT-SIZE="10">X-Accel-Redirect</FONT>>];
+    }
+    orm [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Modelos (ORM)</B><BR/><FONT POINT-SIZE="9">[usuarios · animales · tienda]</FONT><BR/><FONT POINT-SIZE="10">validaciones de dominio</FONT>>];
+  }
+  db [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=cylinder, label=<<B>Base de datos</B><BR/><FONT POINT-SIZE="9">[MySQL 8]</FONT>>];
+  med [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=folder, label=<<B>Comprobantes</B><BR/><FONT POINT-SIZE="9">[almacenamiento privado]</FONT>>];
+  app -> auth [label="JSON + JWT"]; app -> ani; app -> syn;
+  web -> cat [label="JSON"]; web -> ped;
+  br -> pan [label="sesión"];
+  ani -> gen; ped -> svc; cmd -> svc; pan -> svc [label="confirma pagos"]; pan -> cmp;
+  rep -> orm [ltail=cluster_gan, label="ORM"];
+  svc -> orm [ltail=cluster_tie, label="ORM"];
+  pan -> orm;
+  orm -> db [label="SQL"]; cmp -> med;
+  ani -> esq [style=invis]; auth -> rep [style=invis]; esq -> rep [style=invis];
+  rep -> pan [style=invis]; gen -> pan [style=invis]; pan -> cmd [style=invis]; pan -> cat [style=invis];
+  cmd -> cmp [style=invis]; cat -> svc [style=invis];
+
+}

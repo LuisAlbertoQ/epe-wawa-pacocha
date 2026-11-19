@@ -1,0 +1,33 @@
+digraph "e1_nav_tienda" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.35, ranksep=0.5, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+  ini [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Inicio</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">portada editable (carrusel, cifras, destacados)</FONT></TD></TR></TABLE>>];
+  cat [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="170" HEIGHT="133" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot4.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Catálogo</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">filtros: categoría, talla, color, fibra, artesano</FONT></TD></TR></TABLE>>];
+  prod [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="170" HEIGHT="119" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot5.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Ficha de producto</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">variantes, stock, precio, trazabilidad</FONT></TD></TR></TABLE>>];
+  car [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Carrito</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">persistente en el navegador</FONT></TD></TR></TABLE>>];
+  chk [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD FIXEDSIZE="TRUE" WIDTH="170" HEIGHT="120" BGCOLOR="white"><IMG SRC="file:///C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/4e4bf6a7-5bdc-45e1-8d37-9e7186b8414d/scratchpad/diag/img/shot6.png" SCALE="TRUE"/></TD></TR><TR><TD><B>Checkout</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">nombre, teléfono, Yape/Plin · sin cuenta</FONT></TD></TR></TABLE>>];
+  ped [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Mi pedido</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">código WP-#####, estado, motivo</FONT></TD></TR></TABLE>>];
+  pago [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Pago</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">número Yape/Plin · subir comprobante</FONT></TD></TR></TABLE>>];
+  ani [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Animales en venta</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">reproductores, crías, fibra</FONT></TD></TR></TABLE>>];
+  anid [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Ficha del animal</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">genealogía + análisis de fibra</FONT></TD></TR></TABLE>>];
+  fer [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Ferias y prensa</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">próximas e historial</FONT></TD></TR></TABLE>>];
+  seg [shape=plain, label=<<TABLE BORDER="1" STYLE="rounded" COLOR="#1F3864" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#EAF0FA"><TR><TD><B>Seguimiento</B><BR/><FONT POINT-SIZE="9" COLOR="#444444">buscar por código + teléfono</FONT></TD></TR></TABLE>>];
+  wsp [shape=box, style="rounded,filled,dashed", fillcolor="#EDEDED", color="#888888", label=<<B>WhatsApp</B><BR/><FONT POINT-SIZE="9">externo, opcional</FONT>>];
+  ini -> cat [label="menú / mosaicos"];
+  ini -> ani [label="menú"];
+  ini -> fer [label="menú"];
+  ini -> seg [label="menú"];
+  cat -> prod [label="elegir producto"];
+  prod -> car [label="agregar variante"];
+  car -> chk [label="finalizar compra"];
+  chk -> ped [label="pedido creado\n(stock reservado)"];
+  ped -> pago [label="pagar"];
+  pago -> ped [label="comprobante enviado", constraint=false];
+  seg -> ped [label="pedido encontrado"];
+  ani -> anid [label="ver animal"];
+  anid -> wsp [label="consultar", style=dashed];
+  chk -> wsp [label="detalle del pedido", style=dashed];
+  {rank=same; cat; ani; fer; seg}
+
+}

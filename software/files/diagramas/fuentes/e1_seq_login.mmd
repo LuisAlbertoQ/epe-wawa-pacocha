@@ -1,0 +1,36 @@
+sequenceDiagram
+  autonumber
+  actor C as Criador
+  participant A as App Flutter
+  participant S as Almacén seguro
+  participant API as API /auth/ (SimpleJWT)
+  participant DB as MySQL 8
+  C->>A: Ingresa teléfono y contraseña
+  A->>API: POST /auth/login/
+  API->>DB: Busca el usuario y verifica el hash PBKDF2
+  alt credenciales válidas y cuenta activa
+    API-->>A: 200 access + refresh (7 días)
+    A->>S: Guarda access y refresh
+    A-->>C: Abre el Dashboard
+  else credenciales inválidas o cuenta desactivada
+    API-->>A: 400 con el motivo
+    A-->>C: Muestra el error en el formulario
+  end
+  Note over A,API: Más adelante, en cualquier petición protegida
+  opt access vencido (401)
+    A->>API: POST /auth/refresh/ con el refresh guardado
+    alt refresh válido
+      API->>DB: Pone el refresh usado en la lista negra
+      API-->>A: nuevo access + nuevo refresh (rotación)
+      A->>S: Guarda ambos y reintenta la petición
+    else refresh vencido o en la lista negra
+      A->>S: Borra los tokens
+      A-->>C: Vuelve a la pantalla de Login
+    end
+  end
+  Note over C,DB: Cerrar sesión
+  C->>A: Cerrar sesión (avisa si hay cambios sin sincronizar)
+  A->>API: POST /auth/logout/ con el refresh
+  API->>DB: Pone el refresh en la lista negra
+  A->>S: Borra los tokens y vacía la base local
+  A-->>C: Pantalla de Login

@@ -1,0 +1,16 @@
+17	F401  	[*] unused-import
+14	E501  	[ ] line-too-long
+ 9	W292  	[*] missing-newline-at-end-of-file
+ 8	C901  	[ ] complex-structure
+ 6	DJ007 	[ ] django-all-with-model-form
+ 6	E402  	[ ] module-import-not-at-top-of-file
+ 5	DJ012 	[ ] django-unordered-body-content-in-model
+ 3	B904  	[ ] raise-without-from-inside-except
+ 2	E741  	[ ] ambiguous-variable-name
+ 1	B007  	[*] unused-loop-control-variable
+ 1	B018  	[ ] useless-expression
+ 1	SIM103	[*] needless-bool
+ 1	SIM105	[*] suppressible-exception
+ 1	SIM110	[*] reimplemented-builtin
+ 1	F841  	[*] unused-variable
+[*] fixable with `ruff check --fix`

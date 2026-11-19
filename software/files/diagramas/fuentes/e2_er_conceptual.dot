@@ -1,0 +1,48 @@
+digraph "e2_er_conceptual" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, nodesep=0.35, ranksep=0.45, newrank=true];
+  node [fontname="Helvetica", fontsize=13];
+  edge [fontname="Helvetica", fontsize=11, color="#555555", penwidth=1.2, arrowhead=none];
+  node [shape=box, style="filled", fillcolor="#DCE6F4", color="#1F3864", penwidth=1.4];
+
+    usr [label=<<B>Usuario</B>>]; ani [label=<<B>Animal</B>>]; raz [label=<<B>Raza</B>>];
+    pro [label=<<B>Producción</B><BR/><FONT POINT-SIZE="10">(esquila)</FONT>>]; ana [label=<<B>Análisis de fibra</B>>];
+    aev [label=<<B>Animal en venta</B>>]; fot [label=<<B>Foto del animal</B>>];
+    lot [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Lote de fibra</B>>]; prc [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Proceso de lote</B>>]; art [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Artesano</B>>];
+    prd [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Producto</B>>]; img [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Imagen de producto</B>>]; var [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Variante</B>>];
+    pre [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Precio de temporada</B>>]; ped [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Pedido</B>>]; det [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Detalle de pedido</B>>];
+    pag [fillcolor="#FCEFD9", color="#8A5A00", label=<<B>Pago</B>>];
+    fer [fillcolor="#EDEDF7", color="#5B5B8F", label=<<B>Evento de feria</B>>]; pub [fillcolor="#EDEDF7", color="#5B5B8F", label=<<B>Publicación</B>>];
+    cms [fillcolor="#EDEDF7", color="#5B5B8F", label=<<B>Contenido de la tienda</B><BR/><FONT POINT-SIZE="10">configuración, portada, menús, textos y «Conócenos»</FONT>>];
+
+  node [shape=diamond, style="filled", fillcolor="#FFF4E0", color="#B26A00", fontsize=11, penwidth=1.1, height=0.5];
+  r1 [label="registra"]; r2 [label="es padre /\nmadre de"]; r3 [label="tiene"]; r4 [label="se analiza\nen"];
+  r5 [label="se publica\ncomo"]; r6 [label="origina"]; r7 [label="aporta"]; r8 [label="pasa por"];
+  r9 [label="abastece"]; r10 [label="confecciona"]; r11 [label="muestra"]; r12 [label="se ofrece\nen"];
+  r13 [label="tiene"]; r14 [label="contiene"]; r15 [label="se vende\nen"]; r16 [label="se paga\ncon"];
+  r17 [label="confirma"]; r19 [label="se muestra
+en"]; r18 [label="clasifica", style="filled,dashed"];
+
+  usr -> r1 [taillabel="1", labeldistance=1.8]; r1 -> ani [headlabel="N", labeldistance=1.8];
+  ani -> r2 [taillabel="0..1", labeldistance=2]; r2 -> ani [headlabel="N", labeldistance=2];
+  ani -> r3 [taillabel="1", labeldistance=1.8]; r3 -> pro [headlabel="N", labeldistance=1.8];
+  pro -> r4 [taillabel="1", labeldistance=1.8]; r4 -> ana [headlabel="0..1", labeldistance=2];
+  ani -> r5 [taillabel="1", labeldistance=1.8]; r5 -> aev [headlabel="0..1", labeldistance=2];
+  ani -> r6 [taillabel="0..1", labeldistance=2]; r6 -> lot [headlabel="N", labeldistance=1.8];
+  pro -> r7 [taillabel="0..1", labeldistance=2]; r7 -> lot [headlabel="N", labeldistance=1.8];
+  lot -> r8 [taillabel="1", labeldistance=1.8]; r8 -> prc [headlabel="N", labeldistance=1.8];
+  lot -> r9 [taillabel="0..1", labeldistance=2]; r9 -> prd [headlabel="N", labeldistance=1.8];
+  art -> r10 [taillabel="0..1", labeldistance=2]; r10 -> prd [headlabel="N", labeldistance=1.8];
+  prd -> r11 [taillabel="1", labeldistance=1.8]; r11 -> img [headlabel="N", labeldistance=1.8];
+  prd -> r12 [taillabel="1", labeldistance=1.8]; r12 -> var [headlabel="N", labeldistance=1.8];
+  var -> r13 [taillabel="1", labeldistance=1.8]; r13 -> pre [headlabel="N", labeldistance=1.8];
+  ped -> r14 [taillabel="1", labeldistance=1.8]; r14 -> det [headlabel="N", labeldistance=1.8];
+  var -> r15 [taillabel="1", labeldistance=1.8]; r15 -> det [headlabel="N", labeldistance=1.8];
+  ped -> r16 [taillabel="1", labeldistance=1.8]; r16 -> pag [headlabel="0..1", labeldistance=2];
+  usr -> r17 [taillabel="0..1", labeldistance=2]; r17 -> pag [headlabel="N", labeldistance=1.8];
+  ani -> r19 [taillabel="1", labeldistance=1.8]; r19 -> fot [headlabel="N", labeldistance=1.8];
+  raz -> r18 [style=dashed, taillabel="1", labeldistance=1.8]; r18 -> ani [style=dashed, headlabel="N", labeldistance=1.8];
+  ley [shape=plain, label=<<TABLE BORDER="0" CELLSPACING="4"><TR><TD BGCOLOR="#DCE6F4" BORDER="1" COLOR="#1F3864">  Ganadería  </TD><TD BGCOLOR="#FCEFD9" BORDER="1" COLOR="#8A5A00">  Tienda virtual  </TD><TD BGCOLOR="#EDEDF7" BORDER="1" COLOR="#5B5B8F">  Contenido (sin relaciones)  </TD></TR></TABLE>>];
+  {rank=same; ley; fer; pub; cms}
+  pag -> ley [style=invis]; det -> fer [style=invis];
+}
+

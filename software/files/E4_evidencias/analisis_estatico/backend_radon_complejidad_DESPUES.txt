@@ -1,0 +1,34 @@
+animales\serializers.py
+    M 392:4 ProduccionSerializer.validate - C (14)
+animales\utils.py
+    F 12:0 calcular_edad_detallada - C (13)
+animales\views.py
+    M 432:4 SyncView._sincronizar_producciones - C (15)
+tienda\admin_site.py
+    M 319:4 AdminSiteTienda.get_app_list - C (13)
+    F 145:0 navegacion - C (11)
+tienda\dashboard.py
+    F 78:0 _serie_diaria - C (12)
+tienda\forms.py
+    C 320:0 VarianteInlineFormSet - C (11)
+tienda\imagenes.py
+    F 25:0 optimizar_imagen - C (12)
+tienda\models.py
+    M 326:4 Lote.clean - C (11)
+tienda\views.py
+    C 240:0 FiltrosView - C (11)
+tienda\management\commands\compilar_traducciones.py
+    F 30:0 leer_po - C (11)
+tienda\management\commands\optimizar_imagenes.py
+    M 56:4 Command.handle - C (13)
+tienda\management\commands\respaldar.py
+    M 66:4 Command.handle - C (11)
+tienda\management\commands\revisar_media.py
+    M 51:4 Command.handle - C (16)
+tienda\management\commands\seed_tienda.py
+    M 637:4 Command._crear_contenido_portada - C (15)
+tienda\management\commands\sembrar_textos.py
+    M 31:4 Command.handle - C (12)
+geneapp\media.py
+    F 50:0 servir_media - C (13)
+Average complexity: A (2.7933526011560694)

@@ -1,0 +1,29 @@
+sequenceDiagram
+  autonumber
+  actor C as Criador
+  participant A as App Flutter (HatoRepository)
+  participant L as SQLite local
+  participant API as API /sync/ (SyncView)
+  participant DB as MySQL 8
+  Note over C,L: Sin conexión a internet
+  C->>A: Registra o edita un animal, una esquila o un análisis
+  A->>A: Valida en el teléfono (arete, padres, fechas, rangos)
+  A->>L: Guarda con uid (UUID v4), estado pendiente y local_updated_at
+  Note over A,DB: Al abrir la app, al volver la señal (connectivity_plus) o con «Sincronizar ahora»
+  A->>L: Lee los pendientes y last_sync
+  A->>API: POST /sync/ con changes, produccion_changes, analisis_changes y last_sync (JWT)
+  loop por cada cambio, en su propia transacción
+    API->>API: Valida con el mismo serializer del alta en línea
+    alt válido y el servidor no tiene una versión más nueva
+      API->>DB: INSERT o UPDATE
+    else inválido
+      API->>API: Lo agrega a rechazados con el motivo
+    end
+  end
+  API->>DB: Asigna padre y madre (los padres pueden venir en el mismo lote)
+  API->>DB: SELECT del hato con updated_at > last_sync
+  DB-->>API: cambios del servidor
+  API-->>A: procesados, rechazados, server_changes, produccion_changes, analisis_changes, sync_timestamp
+  A->>L: Lo procesado pasa a sincronizado y lo rechazado, a error con su motivo
+  A->>L: Aplica los cambios del servidor sin pisar lo pendiente y guarda last_sync
+  A-->>C: Franja de estado y pantalla Sincronización (pendientes y rechazados)
