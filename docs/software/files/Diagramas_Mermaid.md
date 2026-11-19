@@ -7,15 +7,22 @@
 
 ## ENTREGABLE 2 — Diagrama Entidad–Relación (ER)
 
+> Actualizado según el esquema real del proyecto (MySQL 8.0, migraciones Django).
+
 ```mermaid
 erDiagram
     usuarios ||--o{ animales : registra
     animales ||--o{ producciones : produce
     animales ||--o{ animales : "padre/madre"
+    animales ||--o{ fotos_animal : tiene
+    animales ||--o{ animales_en_venta : "se ofrece"
     animales ||--o{ lotes : "origen fibra"
+    producciones ||--|| analisis_fibra : tiene
+    producciones ||--o{ lotes : "origen fibra"
+    artesanos ||--o{ productos : confecciona
     lotes ||--o{ procesos_lote : tiene
     lotes ||--o{ productos : origina
-    artesanos ||--o{ productos : confecciona
+    productos ||--o{ imagenes_producto : tiene
     productos ||--o{ variantes_producto : tiene
     variantes_producto ||--o{ precios_temporada : tiene
     variantes_producto ||--o{ detalle_pedido : aparece
@@ -25,85 +32,154 @@ erDiagram
 
     usuarios {
         bigint id PK
+        varchar username UK
         varchar telefono UK
-        varchar password
+        varchar rol
         tinyint is_staff
+        tinyint is_active
+    }
+    razas {
+        bigint id PK
+        varchar nombre
+        varchar especie
     }
     animales {
         bigint id PK
         char uid UK
         varchar arete UK
-        bigint usuario_id FK
         varchar especie
         varchar sexo
         varchar raza
+        varchar estado
+        varchar sync_status
+        bigint usuario_id FK
         bigint padre_id FK
         bigint madre_id FK
-        tinyint activo
+    }
+    fotos_animal {
+        bigint id PK
+        varchar imagen
+        smallint orden
+        bigint animal_id FK
     }
     producciones {
         bigint id PK
-        bigint animal_id FK
+        char uid UK
         date fecha_esquila
-        decimal peso_vellon_kg
+        decimal peso_vellon_lb
+        decimal longitud_mecha_cm
+        varchar sync_status
+        bigint animal_id FK
+    }
+    analisis_fibra {
+        bigint id PK
+        decimal dmf
+        decimal cv
+        decimal factor_confort
+        bigint produccion_id FK
+    }
+    animales_en_venta {
+        bigint id PK
+        decimal precio
+        varchar proposito
+        varchar estado
+        tinyint destacado
+        bigint animal_id FK
     }
     artesanos {
         bigint id PK
         varchar nombre
+        varchar localidad
+        tinyint activo
     }
     lotes {
         bigint id PK
         varchar codigo_lote UK
         varchar tipo_fibra
+        decimal cantidad_kg
         bigint animal_id FK
+        bigint produccion_id FK
     }
     procesos_lote {
         bigint id PK
-        bigint lote_id FK
         varchar etapa
-        tinyint orden_secuencia
+        smallint orden_secuencia
+        date fecha_proceso
+        bigint lote_id FK
     }
     productos {
         bigint id PK
         varchar nombre
+        varchar slug UK
         varchar categoria
+        varchar unidad_venta
+        tinyint destacado
         bigint artesano_id FK
         bigint lote_id FK
     }
+    imagenes_producto {
+        bigint id PK
+        varchar imagen_url
+        smallint orden
+        bigint producto_id FK
+    }
     variantes_producto {
         bigint id PK
-        bigint producto_id FK
+        varchar sku UK
         varchar talla
         varchar color
-        varchar sku UK
+        varchar tipo_prenda
         decimal precio_base
         int stock
+        int stock_reservado
+        bigint producto_id FK
     }
     precios_temporada {
         bigint id PK
-        bigint variante_id FK
+        varchar nombre_temporada
         decimal precio_especial
         date fecha_inicio
         date fecha_fin
+        tinyint activo
+        bigint variante_id FK
     }
     pedidos {
         bigint id PK
+        varchar codigo UK
         varchar cliente_nombre
+        varchar cliente_contacto
         varchar estado
         decimal total
     }
     detalle_pedido {
         bigint id PK
+        int cantidad
+        decimal precio_unitario
         bigint pedido_id FK
         bigint variante_id FK
-        int cantidad
     }
     pagos {
         bigint id PK
-        bigint pedido_id FK "UK 1:1"
         varchar metodo
         varchar estado
-        bigint confirmado_por FK
+        varchar comprobante_imagen
+        varchar huella_comprobante
+        bigint pedido_id FK
+        bigint confirmado_por_id FK
+    }
+    eventos_feria {
+        bigint id PK
+        varchar titulo
+        date fecha_evento
+        varchar ubicacion
+        tinyint activo
+    }
+    publicaciones {
+        bigint id PK
+        varchar titulo
+        varchar fuente
+        date fecha
+        tinyint activo
     }
 ```
 
