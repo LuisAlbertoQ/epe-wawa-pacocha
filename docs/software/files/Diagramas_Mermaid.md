@@ -11,6 +11,8 @@
 
 > Modelo de datos completo (31 tablas) del sistema Wawa Pacocha.
 
+![Diagrama 1](diagramas/mermaid_1.png)
+
 ```mermaid
 erDiagram
     usuarios ||--o{ animales : registra
@@ -189,6 +191,8 @@ erDiagram
 
 ## ENTREGABLE 1 — Arquitectura (estilo C4: contexto + contenedores)
 
+![Diagrama 2](diagramas/mermaid_2.png)
+
 ```mermaid
 flowchart TB
     subgraph Personas
@@ -218,6 +222,8 @@ flowchart TB
 ---
 
 ## ENTREGABLE 1 — Casos de Uso
+
+![Diagrama 3](diagramas/mermaid_3.png)
 
 ```mermaid
 flowchart LR
@@ -252,6 +258,8 @@ flowchart LR
 ---
 
 ## ENTREGABLE 1 — Clases (Módulo Ganadería)
+
+![Diagrama 4](diagramas/mermaid_4.png)
 
 ```mermaid
 classDiagram
@@ -319,6 +327,8 @@ classDiagram
 ---
 
 ## ENTREGABLE 1 — Clases (Módulo Tienda)
+
+![Diagrama 5](diagramas/mermaid_5.png)
 
 ```mermaid
 classDiagram
@@ -438,6 +448,8 @@ classDiagram
 
 ## ENTREGABLE 1 — Secuencia: Sincronización Offline
 
+![Diagrama 6](diagramas/mermaid_6.png)
+
 ```mermaid
 sequenceDiagram
     participant App as App Movil
@@ -458,6 +470,8 @@ sequenceDiagram
 ---
 
 ## ENTREGABLE 1 — Secuencia: Compra y Pago Manual
+
+![Diagrama 7](diagramas/mermaid_7.png)
 
 ```mermaid
 sequenceDiagram
@@ -481,6 +495,8 @@ sequenceDiagram
 ---
 
 ## ENTREGABLE 1 — Secuencia: Trazabilidad del Producto
+
+![Diagrama 8](diagramas/mermaid_8.png)
 
 ```mermaid
 sequenceDiagram
