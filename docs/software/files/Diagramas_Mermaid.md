@@ -2,12 +2,14 @@
 
 > Pégalos en https://mermaid.live para verlos y exportarlos como **PNG** o **SVG** (alta resolución).
 > Luego se pueden insertar en los entregables E1 y E2.
+>
+> Actualizados según el MVP real: backend Django REST, app Flutter (offline-first), tienda Next.js, MySQL 8.
 
 ---
 
 ## ENTREGABLE 2 — Diagrama Entidad–Relación (ER)
 
-> Actualizado según el esquema real del proyecto (MySQL 8.0, migraciones Django).
+> Modelo de datos completo (31 tablas) del sistema Wawa Pacocha.
 
 ```mermaid
 erDiagram
@@ -195,8 +197,9 @@ flowchart TB
         Comprador["Comprador"]
     end
     subgraph Contenedores
-        App["App Movil (Flutter, offline-first)"]
-        Web["Tienda Web (React / Next.js)"]
+        Nginx["Nginx (reverse proxy)"]
+        App["App Movil (Flutter, offline-first, SQLite)"]
+        Web["Tienda Web (Next.js / React)"]
         Backoffice["Backoffice (Admin de Django)"]
         API["API REST (Django REST Framework)"]
         DB[("Base de Datos MySQL 8")]
@@ -204,8 +207,10 @@ flowchart TB
     Criador --> App
     Comprador --> Web
     Admin --> Backoffice
-    App -->|JSON/HTTPS sync| API
-    Web -->|JSON/HTTPS| API
+    App -->|JSON/HTTPS + JWT| Nginx
+    Web -->|JSON/HTTPS| Nginx
+    Nginx -->|/api, /admin, /static| API
+    Nginx -->|resto| Web
     API -->|ORM/SQL| DB
     Backoffice -->|ORM| DB
 ```
@@ -219,24 +224,29 @@ flowchart LR
     Criador(["Criador"])
     Vet(["Veterinario"])
     Admin(["Administrador"])
-    Prop(["Propietario"])
     Comp(["Comprador"])
 
     Criador --- U1((Registrar animal))
     Criador --- U2((Ver arbol genealogico))
-    Criador --- U3((Sincronizar datos))
-    Criador --- U4((Registrar produccion))
+    Criador --- U3((Sincronizar datos offline))
+    Criador --- U4((Registrar esquila))
+    Criador --- U5((Analizar fibra))
+    Criador --- U6((Exportar reportes))
     Vet --- U1
     Vet --- U2
-    Admin --- U5((Gestionar roles))
-    Admin --- U6((Confirmar pago))
-    Admin --- U7((Gestionar catalogo y precios))
-    Prop --- U8((Generar reporte))
-    Comp --- U9((Consultar catalogo))
-    Comp --- U10((Ver trazabilidad producto))
-    Comp --- U11((Agregar al carrito))
-    Comp --- U12((Generar pedido))
-    Comp --- U13((Subir comprobante))
+    Vet --- U4
+    Vet --- U5
+    Admin --- U7((Gestionar roles y permisos))
+    Admin --- U8((Confirmar pago))
+    Admin --- U9((Gestionar catalogo y precios))
+    Admin --- U10((Gestionar animales en venta))
+    Admin --- U11((Gestionar contenido web))
+    Admin --- U12((Publicar eventos y noticias))
+    Comp --- U13((Consultar catalogo))
+    Comp --- U14((Ver trazabilidad del producto))
+    Comp --- U15((Agregar al carrito))
+    Comp --- U16((Generar pedido))
+    Comp --- U17((Subir comprobante))
 ```
 
 ---
@@ -247,11 +257,17 @@ flowchart LR
 classDiagram
     class Usuario {
         +BigInt id
+        +String username
         +String telefono
         +Enum rol
         +Bool is_staff
+        +Bool is_active
         +es_admin() Bool
-        +animales_registrados() int
+    }
+    class Raza {
+        +BigInt id
+        +String nombre
+        +Enum especie
     }
     class Animal {
         +BigInt id
@@ -259,21 +275,45 @@ classDiagram
         +String arete
         +Enum especie
         +Enum sexo
-        +Enum raza
-        +Decimal diametro_fibra
-        +Bool seleccionado
+        +String raza
+        +Date fecha_nacimiento
+        +Decimal peso_nacimiento_kg
+        +Decimal longitud_mecha_nacimiento_cm
+        +Enum estado
+        +String sync_status
         +Bool activo
         +verificar_padres() void
     }
+    class FotoAnimal {
+        +BigInt id
+        +String imagen
+        +String descripcion
+        +Int orden
+    }
     class Produccion {
         +BigInt id
+        +UUID uid
         +Date fecha_esquila
-        +Decimal peso_vellon_kg
-        +Decimal rendimiento_pct
+        +Int numero_esquila
+        +Decimal peso_vellon_lb
+        +Decimal longitud_mecha_cm
+        +String sync_status
+    }
+    class AnalisisFibra {
+        +BigInt id
+        +Decimal dmf
+        +Decimal cv
+        +Decimal desviacion_estandar
+        +Decimal factor_confort
+        +Decimal indice_curvatura
+        +Date fecha_analisis
     }
     Usuario "1" --> "N" Animal : registra
+    Raza "1" --> "N" Animal : clasifica
     Animal "0..1" --> "N" Animal : padre/madre
+    Animal "1" --> "N" FotoAnimal : tiene
     Animal "1" --> "N" Produccion : produce
+    Produccion "1" --> "1" AnalisisFibra : tiene
 ```
 
 ---
@@ -282,55 +322,116 @@ classDiagram
 
 ```mermaid
 classDiagram
+    class Artesano {
+        +BigInt id
+        +String nombre
+        +String localidad
+        +Bool activo
+    }
     class Lote {
         +BigInt id
         +String codigo_lote
         +Enum tipo_fibra
+        +Decimal cantidad_kg
+        +Date fecha_ingreso
     }
     class ProcesoLote {
+        +BigInt id
         +Enum etapa
-        +int orden_secuencia
-    }
-    class Artesano {
-        +String nombre
+        +Int orden_secuencia
+        +Date fecha_proceso
     }
     class Producto {
+        +BigInt id
         +String nombre
+        +String slug
         +Enum categoria
+        +String unidad_venta
+        +Bool destacado
+        +Bool activo
+    }
+    class ImagenProducto {
+        +BigInt id
+        +String imagen_url
+        +Int orden
     }
     class VarianteProducto {
+        +BigInt id
+        +String sku
         +String talla
         +String color
-        +String sku
+        +String tipo_prenda
         +Decimal precio_base
-        +int stock
+        +Int stock
+        +Int stock_reservado
     }
     class PrecioTemporada {
-        +Decimal precio
+        +BigInt id
+        +String nombre_temporada
+        +Decimal precio_especial
         +Date fecha_inicio
         +Date fecha_fin
+        +Bool activo
     }
     class Pedido {
+        +BigInt id
+        +String codigo
         +String cliente_nombre
+        +String cliente_contacto
         +Enum estado
         +Decimal total
     }
     class DetallePedido {
-        +int cantidad
+        +BigInt id
+        +Int cantidad
         +Decimal precio_unitario
     }
     class Pago {
+        +BigInt id
         +Enum metodo
         +Enum estado
+        +String comprobante_imagen
+        +String huella_comprobante
+    }
+    class AnimalEnVenta {
+        +BigInt id
+        +Decimal precio
+        +Enum proposito
+        +Enum estado
+        +Bool destacado
+    }
+    class EventoFeria {
+        +BigInt id
+        +String titulo
+        +Date fecha_evento
+        +String ubicacion
+        +Bool activo
+    }
+    class Publicacion {
+        +BigInt id
+        +String titulo
+        +Enum fuente
+        +Date fecha
+        +Bool activo
+    }
+    class ConfiguracionTienda {
+        +BigInt id
+        +String nombre_tienda
+        +String hero_titulo
+        +String telefono_yape
+        +String telefono_plin
+        +Int horas_reserva
     }
     Lote "1" --> "N" ProcesoLote
     Lote "1" --> "N" Producto
     Artesano "1" --> "N" Producto
+    Producto "1" --> "N" ImagenProducto
     Producto "1" --> "N" VarianteProducto
     VarianteProducto "1" --> "N" PrecioTemporada
     VarianteProducto "1" --> "N" DetallePedido
     Pedido "1" --> "N" DetallePedido
     Pedido "1" --> "1" Pago
+    Animal "1" --> "0..1" AnimalEnVenta : se ofrece
 ```
 
 ---
@@ -346,7 +447,7 @@ sequenceDiagram
     App->>App: registra animal (SQLite, sync_status=PEN)
     Note over App: recupera internet
     App->>API: POST /sync/ {last_sync, changes[]}
-    API->>DB: UPSERT animales
+    API->>DB: UPSERT animales, producciones, analisis
     DB-->>API: OK
     API->>DB: SELECT updated_at > last_sync
     DB-->>API: server_changes
@@ -365,8 +466,8 @@ sequenceDiagram
     participant A as Administrador
     C->>API: agrega al carrito / valida stock
     API-->>C: stock OK
-    C->>API: POST /pedidos/ (crea Pedido pendiente)
-    API-->>C: pedido_id
+    C->>API: POST /pedidos/ (crea Pedido pendiente, reserva stock)
+    API-->>C: codigo WP-#####
     Note over C: paga por Yape/Plin (fuera del sistema)
     C->>API: POST /pedidos/{id}/comprobante/
     API-->>C: comprobante recibido
@@ -375,6 +476,21 @@ sequenceDiagram
     A->>API: PATCH /pagos/{id}/ confirmar
     API->>API: Pago=confirmado, Pedido=pagado, descuenta stock
     API-->>C: pedido confirmado
+```
+
+---
+
+## ENTREGABLE 1 — Secuencia: Trazabilidad del Producto
+
+```mermaid
+sequenceDiagram
+    participant C as Comprador (Web)
+    participant API as API REST (tienda)
+    participant DB as Base de Datos
+    C->>API: GET /productos/{slug}/trazabilidad/
+    API->>DB: Producto -> Variante -> Lote -> Animal, Produccion, AnalisisFibra, ProcesosLote
+    DB-->>API: datos de trazabilidad
+    API-->>C: ficha con DMF, CV, factor confort, procesos y animal de origen
 ```
 
 ---

@@ -1,6 +1,6 @@
 # Línea de Ingeniería de Software
 
-**Competencia CE02 — Gestiona y desarrolla software.** Sistema integral de gestión ganadera y comercialización para la Empresa Ganadera **Wawa Pacocha SRL** (Puno): app móvil offline-first, API REST y tienda web, sobre MySQL 8.
+**Competencia CE02 — Gestiona y desarrolla software.** Sistema integral de gestión ganadera y comercialización para la Empresa Ganadera **Wawa Pacocha SRL** (Puno): app móvil Flutter offline-first con sincronización, API REST Django, tienda web Next.js y MySQL 8. Incluye registro genealógico, alerta de consanguinidad (Wright), análisis de fibra, trazabilidad del producto, reserva de stock y CMS editable.
 
 ## Entregables
 

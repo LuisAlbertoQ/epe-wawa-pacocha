@@ -2,7 +2,7 @@
 
 ## Empresa Ganadera Wawa Pacocha SRL — Puno
 
-Evaluación del Perfil de Egreso (EPE) de la carrera de **Ingeniería de Sistemas**. Este sitio reúne los entregables organizados por las tres líneas de especialidad.
+Evaluación del Perfil de Egreso (EPE) de la carrera de **Ingeniería de Sistemas**. Este sitio reúne los entregables organizados por las tres líneas de especialidad, aplicados al sistema **Wawa Pacocha** (ganadería y comercialización: app móvil offline-first, tienda web, backend Django REST y MySQL 8).
 
 <div class="grid cards" markdown>
 

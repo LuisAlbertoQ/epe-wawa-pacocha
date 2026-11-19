@@ -1,6 +1,6 @@
 # Línea de Infraestructura Tecnológica
 
-**Competencia CE03 — Diseña y ejecuta proyectos de infraestructura tecnológica.**
+**Competencia CE03 — Diseña y ejecuta proyectos de infraestructura tecnológica.** Incluye despliegue con Docker, Nginx como reverse proxy, MySQL y Cloudflare Tunnel para el sistema Wawa Pacocha.
 
 ## Entregables
 
