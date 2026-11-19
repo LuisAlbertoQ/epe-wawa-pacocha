@@ -24,13 +24,17 @@ nav:
       - Resumen: software/index.md
       - E1 · Definición del Sistema: software/e1.md
       - E2 · Base de Datos: software/e2.md
+      - E3 · Sistema Integrado: software/e3.md
+      - E4 · Gestión de Calidad: software/e4.md
       - Presentación: software/presentacion.md
+      - Diagramas Mermaid: software/files/Diagramas_Mermaid.md
   - Gestión de TI:
       - Resumen: gestion/index.md
       - E1 · Diagnóstico: gestion/e1.md
       - E2 · Business Case: gestion/e2.md
       - E3 · Plan de Gestión: gestion/e3.md
       - E4 · Modelado de Procesos: gestion/e4.md
+      - E5 · Propuesta TIC Integrada: gestion/e5.md
   - Infraestructura:
       - Resumen: infraestructura/index.md
 

@@ -1,0 +1,20 @@
+digraph "e1_estados_pedido" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=1.2, ranksep=0.6];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  ini [shape=circle, style=filled, fillcolor=black, label="", width=0.22];
+  fin [shape=doublecircle, style=filled, fillcolor=black, label="", width=0.16];
+  pen [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Pendiente</B><BR/><FONT POINT-SIZE="10">stock reservado · espera comprobante</FONT>>];
+  pag [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Pagado</B><BR/><FONT POINT-SIZE="10">stock físico descontado</FONT>>];
+  ent [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Entregado</B>>];
+  can [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, fillcolor="#F6DADA", color="#9B2C2C", label=<<B>Cancelado</B><BR/><FONT POINT-SIZE="10">reserva liberada</FONT>>];
+  ini -> pen [label="Comprador genera el pedido\n[stock disponible] / reserva unidades, código WP-#####"];
+  pen -> pen [label="sube comprobante / pago pendiente\nAdmin pide otro comprobante / guarda motivo"];
+  pen -> pag [label="Admin confirma el pago\n/ stock −= cantidad, reservado −= cantidad"];
+  pen -> can [label="Admin rechaza el comprobante,\nel comprador cancela o vence la reserva\n(horas_reserva, caducar_pedidos) / libera stock"];
+  pag -> ent [label="Admin marca entregado"];
+  ent -> fin; can -> fin;
+  {rank=same; pag; can}
+
+}

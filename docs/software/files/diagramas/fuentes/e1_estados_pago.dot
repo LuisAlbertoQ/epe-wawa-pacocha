@@ -1,0 +1,20 @@
+digraph "e1_estados_pago" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.8, ranksep=0.8];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+  ini [shape=circle, style=filled, fillcolor=black, label="", width=0.22];
+  fin [shape=doublecircle, style=filled, fillcolor=black, label="", width=0.16];
+
+  pen [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Pendiente</B><BR/><FONT POINT-SIZE="10">comprobante en revisión</FONT>>];
+  con [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, label=<<B>Confirmado</B><BR/><FONT POINT-SIZE="10">inmutable · pedido pagado</FONT>>];
+  rec [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, fillcolor="#F6DADA", color="#9B2C2C", label=<<B>Rechazado</B><BR/><FONT POINT-SIZE="10">pedido cancelado · stock liberado</FONT>>];
+  dsc [shape=box, style="rounded,filled", fillcolor="#DCE6F4", color="#1F3864", fontsize=13, fillcolor="#FFF4E0", color="#B26A00", label=<<B>Descartado</B><BR/><FONT POINT-SIZE="10">se borra la captura · pedido sigue pendiente</FONT>>];
+  ini -> pen [label="Comprador sube comprobante\n[pedido pendiente] / valida imagen"];
+  pen -> con [label="Admin confirma\n/ descuenta stock, guarda confirmado_por"];
+  pen -> rec [label="Admin rechaza\n/ motivo, cancela pedido"];
+  pen -> dsc [label="Admin pide otro comprobante\n/ guarda motivo en el pedido"];
+  dsc -> ini [label="el comprador puede subir\nuno nuevo", style=dashed, constraint=false];
+  con -> fin; rec -> fin;
+  {rank=same; con; rec; dsc}
+
+}

@@ -10,3 +10,4 @@
 | **E2 — Business Case del Proyecto** | [Ver](e2.md) |
 | **E3 — Plan de Gestión del Proyecto** | [Ver](e3.md) |
 | **E4 — Modelado de Procesos AS-IS / TO-BE** | [Ver](e4.md) |
+| **E5 — Propuesta de Solución TIC Integrada** | [Ver](e5.md) |

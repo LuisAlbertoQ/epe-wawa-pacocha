@@ -1,0 +1,39 @@
+digraph "e1_c4_c2" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.4, ranksep=0.6, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  cri [shape=box, style="rounded,filled", fillcolor="#08427B", fontcolor=white, color="#073B6F", label=<<B>Criador</B><BR/><FONT POINT-SIZE="9">[Persona]</FONT>>];
+  com [shape=box, style="rounded,filled", fillcolor="#08427B", fontcolor=white, color="#073B6F", label=<<B>Comprador</B><BR/><FONT POINT-SIZE="9">[Persona]</FONT>>];
+  adm [shape=box, style="rounded,filled", fillcolor="#08427B", fontcolor=white, color="#073B6F", label=<<B>Administrador</B><BR/><FONT POINT-SIZE="9">[Persona]</FONT>>];
+  subgraph cluster_and { label=<<B>Smartphone Android 8+</B><BR/><FONT POINT-SIZE="9">[Nodo de despliegue]</FONT>>; style="dashed"; color="#555555";
+    app [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>App móvil GeneApp</B><BR/><FONT POINT-SIZE="9">[Contenedor: Flutter / Dart]</FONT><BR/><FONT POINT-SIZE="10">UI, estado y llamadas a la API</FONT>>];
+    sql [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=cylinder, label=<<B>Base local</B><BR/><FONT POINT-SIZE="9">[Contenedor: SQLite (sqflite)]</FONT><BR/><FONT POINT-SIZE="10">datos offline + cola de cambios</FONT>>];
+  }
+  subgraph cluster_nav { label=<<B>Navegador web</B><BR/><FONT POINT-SIZE="9">[Nodo de despliegue]</FONT>>; style="dashed"; color="#555555";
+    br [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Páginas de la tienda y del panel</B><BR/><FONT POINT-SIZE="9">[HTML / JS en el navegador]</FONT>>];
+  }
+  subgraph cluster_vps { label=<<B>Servidor VPS Ubuntu 22.04 · Docker Compose</B><BR/><FONT POINT-SIZE="9">[Nodo de despliegue: 2 vCPU, 4 GB]</FONT>>; style="dashed"; color="#555555";
+    ngx [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>Proxy inverso</B><BR/><FONT POINT-SIZE="9">[Contenedor: Nginx :80/:443]</FONT><BR/><FONT POINT-SIZE="10">SSL Let's Encrypt · /static · /media</FONT><BR/><FONT POINT-SIZE="10">/privado/: ubicación interna</FONT>>];
+    web [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>Tienda web</B><BR/><FONT POINT-SIZE="9">[Contenedor: Next.js 15 :3000]</FONT><BR/><FONT POINT-SIZE="10">SSR + SEO, carrito, checkout,</FONT><BR/><FONT POINT-SIZE="10">seguimiento del pedido</FONT>>];
+    api [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", label=<<B>API REST + Panel</B><BR/><FONT POINT-SIZE="9">[Contenedor: Django 4.2 + DRF + Gunicorn :8000]</FONT><BR/><FONT POINT-SIZE="10">JWT, reglas de negocio, sincronización,</FONT><BR/><FONT POINT-SIZE="10">reservas de stock, admin django-unfold</FONT>>];
+    db [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=cylinder, label=<<B>Base de datos</B><BR/><FONT POINT-SIZE="9">[Contenedor: MySQL 8 :3306]</FONT><BR/><FONT POINT-SIZE="10">31 tablas: hato, tienda y CMS</FONT>>];
+    med [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=folder, label=<<B>Archivos públicos</B><BR/><FONT POINT-SIZE="9">[Volumen media_data]</FONT><BR/><FONT POINT-SIZE="10">fotos y videos</FONT>>];
+    prv [shape=box, style="rounded,filled", fillcolor="#438DD5", fontcolor=white, color="#3C7FC0", shape=folder, label=<<B>Comprobantes de pago</B><BR/><FONT POINT-SIZE="9">[Volumen privado_data]</FONT><BR/><FONT POINT-SIZE="10">sin URL pública; solo vía el panel</FONT>>];
+    cron [shape=box, style="rounded,filled", fillcolor="#85BBF0", fontcolor="#0B2A4A", color="#5D99D6", label=<<B>Tareas diarias</B><BR/><FONT POINT-SIZE="9">[cron: manage.py]</FONT><BR/><FONT POINT-SIZE="10">caducar_pedidos · respaldar</FONT>>];
+  }
+  cri -> app [label="usa"];
+  com -> br [label="usa"]; adm -> br [label="usa"];
+  app -> sql [label="lee / escribe"];
+  app -> ngx [label="JSON/HTTPS + JWT\n/api/v1 · /sync/"];
+  br -> ngx [label="HTTPS"];
+  ngx -> web [label="/"];
+  ngx -> api [label="/api · /admin"];
+  web -> api [label="JSON (SSR)", style=dashed];
+  api -> db [label="ORM / TCP 3306"];
+  api -> med [label="guarda y lee archivos"];
+  api -> prv [label="guarda; entrega con X-Accel-Redirect"];
+  cron -> api [label="ejecuta comandos", style=dashed];
+  {rank=same; cri; com; adm}
+
+}

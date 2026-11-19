@@ -1,0 +1,86 @@
+{
+ "mysqldump": {
+  "code": 0,
+  "err": "",
+  "segundos": 0.2,
+  "bytes": 5766439
+ },
+ "restauracion": {
+  "code": 0,
+  "err": "",
+  "segundos": 1.4
+ },
+ "comparacion": "+----------------------+----------+------------+--------------+\r\n| tabla                | original | restaurada | verificacion |\r\n+----------------------+----------+------------+--------------+\r\n| animales             |    20010 |      20010 | igual        |\r\n| producciones         |        8 |          8 | igual        |\r\n| analisis_fibra       |        6 |          6 | igual        |\r\n| pedidos              |     5005 |       5005 | igual        |\r\n| pagos                |        4 |          4 | igual        |\r\n| variantes_producto   |        6 |          6 | igual        |\r\n| configuracion_tienda |        1 |          1 | igual        |\r\n+----------------------+----------+------------+--------------+\r\n+--------+---------+-----------+\r\n| tablas | rutinas | triggers_ |\r\n+--------+---------+-----------+\r\n|     31 |       7 |        13 |\r\n+--------+---------+-----------+",
+ "binlogs": "+---------------+-----------+-----------+\r\n| Log_name      | File_size | Encrypted |\r\n+---------------+-----------+-----------+\r\n| binlog.000001 |       180 | No        |\r\n| binlog.000002 |   7662659 | No        |\r\n| binlog.000003 |    193873 | No        |\r\n| binlog.000004 |      8387 | No        |\r\n| binlog.000005 |   7689668 | No        |\r\n+---------------+-----------+-----------+",
+ "binlog_formato": "+---------+---------+----------------+\r\n| log_bin | formato | dias_retencion |\r\n+---------+---------+----------------+\r\n|       1 | ROW     |        30.0000 |\r\n+---------+---------+----------------+",
+ "django_migrate": {
+  "code": 0,
+  "out": "cenos... OK\n  Applying tienda.0024_producto_unidad_venta_alter_varianteproducto_talla... OK\n  Applying tienda.0025_fibra_sin_talla... OK\n  Applying tienda.0026_alter_varianteproducto_sku... OK\n  Applying tienda.0027_configuraciontienda_tema_temporada... OK\n  Applying tienda.0028_pago_huella_comprobante... OK\n  Applying tienda.0029_campana_del_ano... OK\n  Applying tienda.0030_paletas_mas_vivas... OK\n  Applying tienda.0031_paletas_mas_serenas... OK\n  Applying tienda.0032_dos_colores_por_campana... OK\n  Applying tienda.0033_andino_con_cuerpo... OK\n  Applying tienda.0034_colores_por_defecto_del_andino... OK\n  Applying tienda.0035_ubicacion_en_el_mapa... OK\n  Applying tienda.0036_comprobantes_privados... OK\n  Applying token_blacklist.0001_initial... OK\n  Applying token_blacklist.0002_outstandingtoken_jti_hex... OK\n  Applying token_blacklist.0003_auto_20171017_2007... OK\n  Applying token_blacklist.0004_auto_20171017_2013... OK\n  Applying token_blacklist.0005_remove_outstandingtoken_jti... OK\n  Applying token_blacklist.0006_auto_20171017_2113... OK\n  Applying token_blacklist.0007_auto_20171017_2214... OK\n  Applying token_blacklist.0008_migrate_to_bigautofield... OK\n  Applying token_blacklist.0010_fix_migrate_to_bigautofield... OK\n  Applying token_blacklist.0011_linearizes_history... OK\n  Applying token_blacklist.0012_alter_outstandingtoken_user... OK\n  Applying usuarios.0002_remove_usuario_plan... OK\n  Applying usuarios.0003_usuario_rol... OK\n  Applying usuarios.0004_dos_roles... OK",
+  "err": "",
+  "segundos": 5.7
+ },
+ "django_seed_tienda": {
+  "code": 0,
+  "out": "Usuario de datos \"900000000\" creado (sin acceso). Usa createsuperuser para entrar al admin.\n  animal TV-A-001 · Nina\n  animal TV-A-002 · Qori\n  animal TV-L-001 · Sami\n  animal TV-O-001 · Tayta\n  lote LOTE-2026-001 · 6 procesos\n  lote LOTE-2026-002 · 4 procesos\n  lote LOTE-2026-003 · 4 procesos\n  lote LOTE-2026-004 · 4 procesos\n  producto Hilado de Alpaca en Madeja · 3 variantes\n  producto Chompa de Alpaca Huacaya · 4 variantes\n  producto Chalina de Ovino Corriedale · 3 variantes\n  producto Gorro Chullo Tradicional · 3 variantes\n  producto Poncho de Llama K'ara · 2 variantes\n  producto Guantes de Baby Alpaca · 3 variantes\n  producto Manta de Alpaca Suri · 2 variantes\n  temporada Aniversario 2026 en 4 variantes\n  3 fichas de animales, 2 en venta\n  3 notas de prensa y publicaciones\n  4 reconocimientos, 3 personas del equipo y 3 convenios\n  configuracion: 7 campo(s) rellenado(s)\n  4 bloques y 4 cifras\n  4 pasos de la tira de trazabilidad\n  3 diapositivas del carrusel\n  4 mosaicos de categoria\n  2 secciones de portada\n  textos y menus editables\n\nCatálogo listo: 7 productos, 20 variantes, 4 lotes trazados.\nPanel de administración: /admin/  ·  API pública: /api/v1/tienda/productos/",
+  "err": "",
+  "segundos": 1.2
+ },
+ "django_respaldar": {
+  "code": 0,
+  "out": "Copia guardada: wawapacocha_2026-11-13_1537.zip (1.5 MB)\n  en C:\\Users\\lucho\\AppData\\Local\\Temp\\claude\\45c7ff872b03bb0a\\4dbb3e34-fd05-4d0e-b367-6cdde99a15e4\\scratchpad\\e2b\\respaldos\n  11 archivo(s) subidos incluidos\n\nPara restaurar en una instalacion limpia:\n  1. descomprime el zip\n  2. python manage.py migrate\n  3. python manage.py loaddata datos.json\n  4. copia la carpeta media/ sobre back_GenApp/media/\n  5. copia la carpeta privado/ sobre back_GenApp/privado/",
+  "err": "",
+  "segundos": 1.2
+ },
+ "zip": {
+  "nombre": "wawapacocha_2026-11-13_1537.zip",
+  "bytes": 1572166,
+  "contenido": [
+   [
+    "datos.json",
+    59224
+   ],
+   [
+    "media/animales/scaled_1000000033.webp",
+    234519
+   ],
+   [
+    "media/animales/scaled_1000000033_TXwm0V9.webp",
+    234519
+   ],
+   [
+    "media/animales/scaled_1000000033_v1RN7Pz.webp",
+    234519
+   ],
+   [
+    "media/animales/scaled_1000000038.png",
+    2357
+   ],
+   [
+    "media/animales/scaled_1000000048.tiff",
+    672278
+   ],
+   [
+    "media/animales/scaled_1000000055.jpg",
+    45739
+   ],
+   [
+    "media/animales/scaled_foto1.jpg",
+    57947
+   ]
+  ],
+  "archivos": 12
+ },
+ "restaurar_migrate": {
+  "code": 0,
+  "out": "list.0004_auto_20171017_2013... OK\n  Applying token_blacklist.0005_remove_outstandingtoken_jti... OK\n  Applying token_blacklist.0006_auto_20171017_2113... OK\n  Applying token_blacklist.0007_auto_20171017_2214... OK\n  Applying token_blacklist.0008_migrate_to_bigautofield... OK\n  Applying token_blacklist.0010_fix_migrate_to_bigautofield... OK\n  Applying token_blacklist.0011_linearizes_history... OK\n  Applying token_blacklist.0012_alter_outstandingtoken_user... OK\n  Applying usuarios.0002_remove_usuario_plan... OK\n  Applying usuarios.0003_usuario_rol... OK\n  Applying usuarios.0004_dos_roles... OK",
+  "err": "",
+  "segundos": 5.4
+ },
+ "restaurar_loaddata": {
+  "code": 0,
+  "out": "Installed 171 object(s) from 1 fixture(s)",
+  "err": "",
+  "segundos": 1.4
+ },
+ "comparacion_django": "+--------------------+----------+------------+\r\n| tabla              | original | restaurada |\r\n+--------------------+----------+------------+\r\n| productos          |        7 |          7 |\r\n| variantes_producto |       20 |         20 |\r\n| animales           |        4 |          4 |\r\n| lotes              |        4 |          4 |\r\n| usuarios           |        1 |          1 |\r\n+--------------------+----------+------------+"
+}

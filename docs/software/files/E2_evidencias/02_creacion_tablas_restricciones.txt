@@ -1,0 +1,207 @@
+== tablas
++--------+
+| tablas |
++--------+
+|     31 |
++--------+
+
+== tablas_detalle
++----------------------+-------------+--------+--------------------+
+| tabla                | filas_aprox | motor  | colacion           |
++----------------------+-------------+--------+--------------------+
+| analisis_fibra       |           6 | InnoDB | utf8mb4_unicode_ci |
+| animales             |           9 | InnoDB | utf8mb4_unicode_ci |
+| animales_en_venta    |           3 | InnoDB | utf8mb4_unicode_ci |
+| artesanos            |           2 | InnoDB | utf8mb4_unicode_ci |
+| bloques_inicio       |           3 | InnoDB | utf8mb4_unicode_ci |
+| cifras_inicio        |           3 | InnoDB | utf8mb4_unicode_ci |
+| configuracion_tienda |           1 | InnoDB | utf8mb4_unicode_ci |
+| convenios            |           1 | InnoDB | utf8mb4_unicode_ci |
+| detalle_pedido       |           6 | InnoDB | utf8mb4_unicode_ci |
+| diapositivas         |           1 | InnoDB | utf8mb4_unicode_ci |
+| enlaces_navegacion   |           6 | InnoDB | utf8mb4_unicode_ci |
+| equipo               |           2 | InnoDB | utf8mb4_unicode_ci |
+| eventos_feria        |           2 | InnoDB | utf8mb4_unicode_ci |
+| fotos_animal         |           2 | InnoDB | utf8mb4_unicode_ci |
+| imagenes_producto    |           3 | InnoDB | utf8mb4_unicode_ci |
+| lotes                |           2 | InnoDB | utf8mb4_unicode_ci |
+| pagos                |           4 | InnoDB | utf8mb4_unicode_ci |
+| pasos_proceso        |           4 | InnoDB | utf8mb4_unicode_ci |
+| pedidos              |           5 | InnoDB | utf8mb4_unicode_ci |
+| precios_temporada    |           2 | InnoDB | utf8mb4_unicode_ci |
+| procesos_lote        |           8 | InnoDB | utf8mb4_unicode_ci |
+| producciones         |           8 | InnoDB | utf8mb4_unicode_ci |
+| productos            |           4 | InnoDB | utf8mb4_unicode_ci |
+| publicaciones        |           2 | InnoDB | utf8mb4_unicode_ci |
+| razas                |           8 | InnoDB | utf8mb4_unicode_ci |
+| reconocimientos      |           2 | InnoDB | utf8mb4_unicode_ci |
+| secciones_pagina     |           1 | InnoDB | utf8mb4_unicode_ci |
+| tarjetas_categoria   |           2 | InnoDB | utf8mb4_unicode_ci |
+| textos_interfaz      |           3 | InnoDB | utf8mb4_unicode_ci |
+| usuarios             |           3 | InnoDB | utf8mb4_unicode_ci |
+| variantes_producto   |           6 | InnoDB | utf8mb4_unicode_ci |
++----------------------+-------------+--------+--------------------+
+
+== fks
++--------------------+-------------------+--------------------+---------+---------------------------+
+| tabla              | columna           | referencia         | col_ref | restriccion               |
++--------------------+-------------------+--------------------+---------+---------------------------+
+| analisis_fibra     | produccion_id     | producciones       | id      | analisis_fibra_ibfk_1     |
+| animales           | madre_id          | animales           | id      | animales_ibfk_2           |
+| animales           | padre_id          | animales           | id      | animales_ibfk_3           |
+| animales           | usuario_id        | usuarios           | id      | animales_ibfk_1           |
+| animales_en_venta  | animal_id         | animales           | id      | animales_en_venta_ibfk_1  |
+| detalle_pedido     | pedido_id         | pedidos            | id      | detalle_pedido_ibfk_1     |
+| detalle_pedido     | variante_id       | variantes_producto | id      | detalle_pedido_ibfk_2     |
+| fotos_animal       | animal_id         | animales           | id      | fotos_animal_ibfk_1       |
+| imagenes_producto  | producto_id       | productos          | id      | imagenes_producto_ibfk_1  |
+| lotes              | animal_id         | animales           | id      | lotes_ibfk_1              |
+| lotes              | produccion_id     | producciones       | id      | lotes_ibfk_2              |
+| pagos              | confirmado_por_id | usuarios           | id      | pagos_ibfk_1              |
+| pagos              | pedido_id         | pedidos            | id      | pagos_ibfk_2              |
+| precios_temporada  | variante_id       | variantes_producto | id      | precios_temporada_ibfk_1  |
+| procesos_lote      | lote_id           | lotes              | id      | procesos_lote_ibfk_1      |
+| producciones       | animal_id         | animales           | id      | producciones_ibfk_1       |
+| productos          | artesano_id       | artesanos          | id      | productos_ibfk_1          |
+| productos          | lote_id           | lotes              | id      | productos_ibfk_2          |
+| variantes_producto | producto_id       | productos          | id      | variantes_producto_ibfk_1 |
++--------------------+-------------------+--------------------+---------+---------------------------+
+
+== checks
++----------------------+--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tabla                | restriccion              | condicion                                                                                                                                                                                  |
++----------------------+--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| analisis_fibra       | chk_analisis_valores     | ((`dmf` > 0) and (`cv` >= 0) and (`factor_confort` between 0 and 100))                                                                                                                     |
+| animales             | chk_animales_especie     | (`especie` in (_utf8mb4\'alpaca\',_utf8mb4\'llama\',_utf8mb4\'ovino\'))                                                                                                                    |
+| animales             | chk_animales_estado      | (`estado` in (_utf8mb4\'VIVO\',_utf8mb4\'VENDIDO\',_utf8mb4\'MUERTO\'))                                                                                                                    |
+| animales             | chk_animales_sexo        | (`sexo` in (_utf8mb4\'hembra\',_utf8mb4\'macho\'))                                                                                                                                         |
+| animales             | chk_animales_sync        | (`sync_status` in (_utf8mb4\'pendiente\',_utf8mb4\'sincronizado\',_utf8mb4\'error\'))                                                                                                      |
+| animales_en_venta    | chk_aev_estado           | (`estado` in (_utf8mb4\'no_en_venta\',_utf8mb4\'disponible\',_utf8mb4\'reservado\',_utf8mb4\'vendido\'))                                                                                   |
+| animales_en_venta    | chk_aev_proposito        | (`proposito` in (_utf8mb4\'reproductor\',_utf8mb4\'cria\',_utf8mb4\'fibra\'))                                                                                                              |
+| configuracion_tienda | chk_config_mapa          | ((`mapa_zoom` between 3 and 19) and (`mapa_latitud` between -(90) and 90) and (`mapa_longitud` between -(180) and 180))                                                                    |
+| lotes                | chk_lotes_tipo_fibra     | (`tipo_fibra` in (_utf8mb4\'alpaca\',_utf8mb4\'llama\',_utf8mb4\'ovino\'))                                                                                                                 |
+| pagos                | chk_pagos_estado         | (`estado` in (_utf8mb4\'pendiente\',_utf8mb4\'confirmado\',_utf8mb4\'rechazado\'))                                                                                                         |
+| pagos                | chk_pagos_metodo         | (`metodo` in (_utf8mb4\'yape\',_utf8mb4\'plin\'))                                                                                                                                          |
+| pedidos              | chk_pedidos_estado       | (`estado` in (_utf8mb4\'pendiente\',_utf8mb4\'pagado\',_utf8mb4\'entregado\',_utf8mb4\'cancelado\'))                                                                                       |
+| procesos_lote        | chk_procesos_etapa       | (`etapa` in (_utf8mb4\'clasificacion\',_utf8mb4\'lavado\',_utf8mb4\'escarmenado\',_utf8mb4\'peinado\',_utf8mb4\'hilado\',_utf8mb4\'emparejado\',_utf8mb4\'torcido\',_utf8mb4\'enconado\')) |
+| producciones         | chk_producciones_sync    | (`sync_status` in (_utf8mb4\'pendiente\',_utf8mb4\'sincronizado\',_utf8mb4\'error\'))                                                                                                      |
+| productos            | chk_productos_categoria  | (`categoria` in (_utf8mb4\'fibra\',_utf8mb4\'artesanal\',_utf8mb4\'semi_industrial\'))                                                                                                     |
+| productos            | chk_productos_unidad     | (`unidad_venta` in (_utf8mb4\'unidad\',_utf8mb4\'kg\',_utf8mb4\'lb\',_utf8mb4\'madeja\',_utf8mb4\'ovillo\',_utf8mb4\'rollo\'))                                                             |
+| publicaciones        | chk_publicaciones_fuente | (`fuente` in (_utf8mb4\'prensa\',_utf8mb4\'facebook\',_utf8mb4\'instagram\',_utf8mb4\'tiktok\',_utf8mb4\'otro\'))                                                                          |
+| razas                | chk_razas_especie        | (`especie` in (_utf8mb4\'alpaca\',_utf8mb4\'llama\',_utf8mb4\'ovino\'))                                                                                                                    |
+| reconocimientos      | chk_recon_direccion      | (`direccion` in (_utf8mb4\'recibido\',_utf8mb4\'otorgado\'))                                                                                                                               |
+| usuarios             | chk_usuarios_rol         | (`rol` in (_utf8mb4\'administrador\',_utf8mb4\'criador\'))                                                                                                                                 |
+| variantes_producto   | chk_variantes_precio     | (`precio_base` > 0)                                                                                                                                                                        |
++----------------------+--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+== conteo_restricciones
++-------------+-------+
+| tipo        | total |
++-------------+-------+
+| CHECK       |    48 |
+| PRIMARY KEY |    31 |
+| FOREIGN KEY |    19 |
+| UNIQUE      |    17 |
++-------------+-------+
+
+== uniques
++--------------------+---------------+-------------------------------------+
+| tabla              | indice        | columnas                            |
++--------------------+---------------+-------------------------------------+
+| analisis_fibra     | produccion_id | produccion_id                       |
+| animales           | arete         | arete                               |
+| animales           | uid           | uid                                 |
+| animales_en_venta  | animal_id     | animal_id                           |
+| lotes              | codigo_lote   | codigo_lote                         |
+| pagos              | pedido_id     | pedido_id                           |
+| pedidos            | codigo        | codigo                              |
+| procesos_lote      | lote_id       | lote_id,orden_secuencia             |
+| producciones       | animal_id     | animal_id,numero_esquila            |
+| producciones       | uid           | uid                                 |
+| productos          | slug          | slug                                |
+| razas              | nombre        | nombre,especie                      |
+| textos_interfaz    | clave         | clave                               |
+| usuarios           | telefono      | telefono                            |
+| usuarios           | username      | username                            |
+| variantes_producto | producto_id   | producto_id,talla,color,tipo_prenda |
+| variantes_producto | sku           | sku                                 |
++--------------------+---------------+-------------------------------------+
+
+== indices
++-------------------+-------------------------------+-------------------------+
+| tabla             | indice                        | columnas                |
++-------------------+-------------------------------+-------------------------+
+| animales          | idx_animales_estado           | estado                  |
+| animales          | idx_animales_updated          | updated_at              |
+| animales_en_venta | idx_animal_estado             | estado,orden            |
+| pagos             | idx_pagos_huella              | huella_comprobante      |
+| pedidos           | idx_pedidos_estado_fecha      | estado,created_at       |
+| producciones      | idx_producciones_animal_fecha | animal_id,fecha_esquila |
+| productos         | idx_productos_cat_activo      | categoria,activo        |
+| reconocimientos   | idx_recon_dir_activo          | direccion,activo        |
++-------------------+-------------------------------+-------------------------+
+
+== rutinas
++-----------+------------------------------+
+| tipo      | nombre                       |
++-----------+------------------------------+
+| FUNCTION  | fn_animales_vivos            |
+| FUNCTION  | fn_precio_vigente            |
+| FUNCTION  | fn_stock_disponible          |
+| PROCEDURE | sp_confirmar_pago            |
+| PROCEDURE | sp_liberar_reservas_vencidas |
+| PROCEDURE | sp_marcar_entregado          |
+| PROCEDURE | sp_resumen_animales          |
++-----------+------------------------------+
+
+== triggers
++------------------------------+--------+---------+----------------+
+| trigger_                     | evento | momento | tabla          |
++------------------------------+--------+---------+----------------+
+| tg_animales_fecha_estado_ins | INSERT | BEFORE  | animales       |
+| tg_animales_fecha_estado_upd | UPDATE | BEFORE  | animales       |
+| tg_reservar_stock            | INSERT | BEFORE  | detalle_pedido |
+| tg_pago_confirmado_inmutable | UPDATE | BEFORE  | pagos          |
++------------------------------+--------+---------+----------------+
+
+== show_create_animales
+*************************** 1. row ***************************
+       Table: animales
+Create Table: CREATE TABLE `animales` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `uid` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `arete` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `especie` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sexo` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `raza` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observaciones` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sync_status` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `usuario_id` bigint NOT NULL,
+  `fecha_estado` datetime(6) DEFAULT NULL,
+  `motivo_estado` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `peso_nacimiento_kg` decimal(5,2) DEFAULT NULL,
+  `estado` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `madre_id` bigint DEFAULT NULL,
+  `padre_id` bigint DEFAULT NULL,
+  `longitud_mecha_nacimiento_cm` decimal(4,1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  UNIQUE KEY `arete` (`arete`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `madre_id` (`madre_id`),
+  KEY `padre_id` (`padre_id`),
+  KEY `idx_animales_estado` (`estado`),
+  KEY `idx_animales_updated` (`updated_at`),
+  CONSTRAINT `animales_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  CONSTRAINT `animales_ibfk_2` FOREIGN KEY (`madre_id`) REFERENCES `animales` (`id`),
+  CONSTRAINT `animales_ibfk_3` FOREIGN KEY (`padre_id`) REFERENCES `animales` (`id`),
+  CONSTRAINT `chk_animales_especie` CHECK ((`especie` in (_utf8mb4'alpaca',_utf8mb4'llama',_utf8mb4'ovino'))),
+  CONSTRAINT `chk_animales_estado` CHECK ((`estado` in (_utf8mb4'VIVO',_utf8mb4'VENDIDO',_utf8mb4'MUERTO'))),
+  CONSTRAINT `chk_animales_sexo` CHECK ((`sexo` in (_utf8mb4'hembra',_utf8mb4'macho'))),
+  CONSTRAINT `chk_animales_sync` CHECK ((`sync_status` in (_utf8mb4'pendiente',_utf8mb4'sincronizado',_utf8mb4'error')))
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

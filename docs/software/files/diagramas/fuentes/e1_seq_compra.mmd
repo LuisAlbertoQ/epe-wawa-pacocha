@@ -1,0 +1,39 @@
+sequenceDiagram
+  autonumber
+  actor Co as Comprador
+  participant W as Tienda web (Next.js)
+  participant API as API tienda (DRF)
+  participant S as services.py
+  participant DB as MySQL 8
+  actor Ad as Administrador
+  Co->>W: Abre la ficha del producto
+  W->>API: GET /tienda/productos/{slug}/
+  API->>DB: producto, variantes, precio vigente y trazabilidad
+  API-->>W: ficha con el stock disponible por variante
+  Co->>W: Agrega variantes al carrito (se guarda en el navegador)
+  Co->>W: Checkout con nombre y teléfono, sin crear cuenta
+  W->>API: POST /tienda/pedidos/ con cliente e items
+  API->>S: crear_pedido()
+  S->>DB: Bloquea las variantes (SELECT ... FOR UPDATE)
+  alt stock disponible suficiente
+    S->>DB: stock_reservado += cantidad y crea el pedido pendiente
+    API-->>W: 201 código WP-00042, total y vencimiento de la reserva
+  else stock insuficiente
+    API-->>W: 409 con el stock disponible de la variante
+  end
+  Co->>Co: Transfiere por Yape o Plin (fuera del sistema)
+  Co->>W: Sube la captura del comprobante
+  W->>API: POST /tienda/pedidos/{codigo}/pago/
+  API->>API: Valida la imagen real (JPEG, PNG o WEBP, máx. 5 MB)
+  API->>S: registrar_pago(): pago pendiente
+  Ad->>S: Revisa el comprobante en el panel (vista protegida)
+  alt comprobante válido
+    S->>DB: confirmar_pago(): stock -= cantidad, reservado -= cantidad, pedido pagado
+  else captura ilegible
+    S->>DB: pedir_otro_comprobante(): guarda el motivo, el pedido sigue pendiente
+  else comprobante falso
+    S->>DB: rechazar_pago(): pedido cancelado y reserva liberada
+  end
+  Co->>W: Consulta su pedido con el código
+  W->>API: GET /tienda/pedidos/{codigo}/
+  API-->>W: estado del pedido y motivo, si corresponde

@@ -1,0 +1,46 @@
+digraph "e1_despliegue" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.35, ranksep=0.55, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  subgraph cluster_and { label=<<B>«dispositivo» Smartphone Android 8+</B>>; style=filled; fillcolor="#EEF3FA"; color="#1F3864";
+    apk [shape=note, style=filled, fillcolor="#FFFFFF", color="#555555", label=<<FONT POINT-SIZE="9" COLOR="#555555">«artefacto»</FONT><BR/><B>GeneApp.apk</B><BR/><FONT POINT-SIZE="10">Flutter</FONT>>];
+    sql [shape=cylinder, style=filled, fillcolor="#FFE0B2", color="#B26A00", label=<<B>SQLite local</B><BR/><FONT POINT-SIZE="10">cola de cambios</FONT>>];
+  }
+  subgraph cluster_pc { label=<<B>«dispositivo» PC / smartphone</B>>; style=filled; fillcolor="#EEF3FA"; color="#1F3864";
+    bro [shape=note, style=filled, fillcolor="#FFFFFF", color="#555555", label=<<FONT POINT-SIZE="9" COLOR="#555555">«entorno»</FONT><BR/><B>Navegador web</B><BR/><FONT POINT-SIZE="10">comprador o Administrador</FONT>>];
+  }
+  subgraph cluster_vps { label=<<B>«nodo» Servidor VPS Ubuntu 22.04 (2 vCPU · 4 GB)</B>>; style=filled; fillcolor="#F4FAF4"; color="#2E6B33";
+    subgraph cluster_dk { label=<<B>«entorno» Docker Compose</B>>; style="filled,rounded"; fillcolor="#E8F4E9"; color="#2E6B33";
+      ngx [shape=box3d, style=filled, fillcolor="#DCE6F4", color="#1F3864", label=<<FONT POINT-SIZE="9" COLOR="#555555">«contenedor»</FONT><BR/><B>nginx:alpine</B><BR/><FONT POINT-SIZE="10">:80 / :443 · Let's Encrypt</FONT><BR/><FONT POINT-SIZE="10">proxy reverso · /static · /media</FONT><BR/><FONT POINT-SIZE="10">/privado/ interna (comprobantes)</FONT>>];
+      fe [shape=box3d, style=filled, fillcolor="#DCE6F4", color="#1F3864", label=<<FONT POINT-SIZE="9" COLOR="#555555">«contenedor»</FONT><BR/><B>frontend</B><BR/><FONT POINT-SIZE="10">Next.js (Node.js) :3000</FONT>>];
+      be [shape=box3d, style=filled, fillcolor="#DCE6F4", color="#1F3864", label=<<FONT POINT-SIZE="9" COLOR="#555555">«contenedor»</FONT><BR/><B>backend</B><BR/><FONT POINT-SIZE="10">Django + Gunicorn :8000</FONT><BR/><FONT POINT-SIZE="10">migrate y collectstatic al iniciar</FONT>>];
+      dbc [shape=box3d, style=filled, fillcolor="#DCE6F4", color="#1F3864", label=<<FONT POINT-SIZE="9" COLOR="#555555">«contenedor»</FONT><BR/><B>db</B><BR/><FONT POINT-SIZE="10">mysql:8.0 :3306</FONT>>];
+      v1 [shape=cylinder, style=filled, fillcolor="#FFE0B2", color="#B26A00", label="mysql_data"];
+      v2 [shape=cylinder, style=filled, fillcolor="#FFE0B2", color="#B26A00", label="media_data"];
+      v3 [shape=cylinder, style=filled, fillcolor="#FFE0B2", color="#B26A00", label="static_data"];
+      v4 [shape=cylinder, style=filled, fillcolor="#FFE0B2", color="#B26A00", label="privado_data"];
+    }
+    cron [shape=note, style=filled, fillcolor="#FFFFFF", color="#555555", label=<<FONT POINT-SIZE="9" COLOR="#555555">«cron»</FONT><BR/><B>Tareas programadas (diarias)</B><BR/><FONT POINT-SIZE="10">caducar_pedidos · respaldar</FONT>>];
+  }
+  bak [shape=box3d, style=filled, fillcolor="#EDEDED", color="#777777", label=<<FONT POINT-SIZE="9" COLOR="#555555">«nodo»</FONT><BR/><B>Almacenamiento externo</B><BR/><FONT POINT-SIZE="10">copia cifrada de respaldos</FONT>>];
+  apk -> sql [label="lee / escribe", dir=both];
+  apk -> ngx [label="HTTPS 443 · JWT"];
+  bro -> ngx [label="HTTPS 443"];
+  ngx -> fe [label="HTTP /"];
+  ngx -> be [label="HTTP /api · /admin"];
+  fe -> be [label="HTTP (SSR)", style=dashed];
+  be -> dbc [label="TCP 3306"];
+  dbc -> v1 [style=dotted, arrowhead=none];
+  be -> v2 [style=dotted, arrowhead=none]; ngx -> v2 [style=dotted, arrowhead=none];
+  be -> v3 [style=dotted, arrowhead=none]; ngx -> v3 [style=dotted, arrowhead=none];
+  be -> v4 [style=dotted, arrowhead=none]; ngx -> v4 [style=dotted, arrowhead=none];
+  cron -> be [label="manage.py", style=dashed];
+  cron -> bak [label="copia .zip", style=dashed];
+  {rank=same; fe; be}
+  {rank=same; dbc; v1; v2; v3; v4}
+  {rank=same; apk; sql}
+  dbc -> cron [style=invis];
+  {rank=same; cron; bak}
+
+}

@@ -1,0 +1,358 @@
+== Q1
+SELECT id, uid, arete, nombre, especie, sexo, raza, fecha_nacimiento
+FROM animales
+WHERE estado = 'VIVO'
+ORDER BY created_at DESC
+LIMIT 20;
+
++----+----------------------------------+-------+--------+---------+--------+---------+------------------+
+| id | uid                              | arete | nombre | especie | sexo   | raza    | fecha_nacimiento |
++----+----------------------------------+-------+--------+---------+--------+---------+------------------+
+|  9 | b0a9d96dfc688db4fceab0055c661ce4 | 2001  | Sumaq  | llama   | hembra | Ch'aku  | 2021-06-01       |
+|  6 | 8987067ad560cb06599b08ad85dae653 | 1006  | Amaru  | alpaca  | macho  | Suri    | 2020-01-10       |
+|  5 | 77b4a428f306f1cd12ab5a88949a556f | 1005  | Pacha  | alpaca  | hembra | Huacaya | 2023-02-18       |
+|  4 | 0a880b75e91cb3fc178dd803fdbb5a3c | 1004  | Wayra  | alpaca  | macho  | Suri    | 2022-02-08       |
+|  3 | 7e6c7bbc67e045c1f4bc0e456d49a1ea | 1003  | Luna   | alpaca  | hembra | Huacaya | 2021-01-15       |
+|  2 | c26f8cb56f82477073813bcb938b6e8e | 1002  | Inti   | alpaca  | macho  | Huacaya | 2018-02-20       |
+|  1 | dc81a14d5d5b3ce9db2103b4748b9719 | 1001  | Killa  | alpaca  | hembra | Huacaya | 2019-03-12       |
++----+----------------------------------+-------+--------+---------+--------+---------+------------------+
+
+
+== Q2
+SELECT id, arete, nombre, especie, sexo, estado
+FROM animales
+WHERE arete LIKE '%100%' OR nombre LIKE '%Lu%'
+ORDER BY arete;
+
++----+-------+------------+---------+--------+---------+
+| id | arete | nombre     | especie | sexo   | estado  |
++----+-------+------------+---------+--------+---------+
+|  1 | 1001  | Killa      | alpaca  | hembra | VIVO    |
+|  2 | 1002  | Inti       | alpaca  | macho  | VIVO    |
+|  3 | 1003  | Luna       | alpaca  | hembra | VIVO    |
+|  4 | 1004  | Wayra      | alpaca  | macho  | VIVO    |
+|  5 | 1005  | Pacha      | alpaca  | hembra | VIVO    |
+|  6 | 1006  | Amaru      | alpaca  | macho  | VIVO    |
+|  7 | 1007  | Tayta      | llama   | macho  | VENDIDO |
+|  8 | 1008  | Mama Ocllo | alpaca  | hembra | MUERTO  |
++----+-------+------------+---------+--------+---------+
+
+
+== Q3
+SELECT a.arete, a.nombre, a.raza, a.estado,
+       p.arete AS padre_arete, p.nombre AS padre_nombre,
+       m.arete AS madre_arete, m.nombre AS madre_nombre
+FROM animales a
+LEFT JOIN animales p ON p.id = a.padre_id
+LEFT JOIN animales m ON m.id = a.madre_id
+WHERE a.id = 5;
+
++-------+--------+---------+--------+-------------+--------------+-------------+--------------+
+| arete | nombre | raza    | estado | padre_arete | padre_nombre | madre_arete | madre_nombre |
++-------+--------+---------+--------+-------------+--------------+-------------+--------------+
+| 1005  | Pacha  | Huacaya | VIVO   | 1006        | Amaru        | 1003        | Luna         |
++-------+--------+---------+--------+-------------+--------------+-------------+--------------+
+
+
+== Q4
+SELECT especie, sexo, estado,
+       COUNT(*)                         AS total,
+       ROUND(AVG(peso_nacimiento_kg),2) AS peso_nac_promedio_kg
+FROM animales
+GROUP BY especie, sexo, estado
+ORDER BY especie, sexo, estado;
+
++---------+--------+---------+-------+----------------------+
+| especie | sexo   | estado  | total | peso_nac_promedio_kg |
++---------+--------+---------+-------+----------------------+
+| alpaca  | hembra | MUERTO  |     1 |                 7.30 |
+| alpaca  | hembra | VIVO    |     3 |                 7.03 |
+| alpaca  | macho  | VIVO    |     3 |                 7.80 |
+| llama   | hembra | VIVO    |     1 |                 9.80 |
+| llama   | macho  | VENDIDO |     1 |                10.50 |
++---------+--------+---------+-------+----------------------+
+
+
+== Q5
+WITH RECURSIVE ancestros AS (
+    SELECT id, arete, nombre, padre_id, madre_id, 0 AS generacion
+    FROM animales WHERE id = 5
+    UNION ALL
+    SELECT a.id, a.arete, a.nombre, a.padre_id, a.madre_id, x.generacion + 1
+    FROM animales a
+    JOIN ancestros x ON a.id = x.padre_id OR a.id = x.madre_id
+    WHERE x.generacion < 3
+)
+SELECT generacion, arete, nombre FROM ancestros ORDER BY generacion, arete;
+
++------------+-------+--------+
+| generacion | arete | nombre |
++------------+-------+--------+
+|          0 | 1005  | Pacha  |
+|          1 | 1003  | Luna   |
+|          1 | 1006  | Amaru  |
+|          2 | 1001  | Killa  |
+|          2 | 1002  | Inti   |
++------------+-------+--------+
+
+
+== Q6
+SELECT 'animales' AS tabla, id, uid, updated_at FROM animales WHERE sync_status = 'pendiente'
+UNION ALL
+SELECT 'producciones', id, uid, updated_at FROM producciones WHERE sync_status = 'pendiente';
+
++----------+----+----------------------------------+----------------------------+
+| tabla    | id | uid                              | updated_at                 |
++----------+----+----------------------------------+----------------------------+
+| animales |  9 | b0a9d96dfc688db4fceab0055c661ce4 | 2026-02-01 11:00:00.000000 |
++----------+----+----------------------------------+----------------------------+
+
+
+== Q7
+SELECT id, uid, arete, nombre, estado, updated_at
+FROM animales
+WHERE updated_at > '2026-02-01 00:00:00'
+ORDER BY updated_at;
+
++----+----------------------------------+-------+------------+---------+----------------------------+
+| id | uid                              | arete | nombre     | estado  | updated_at                 |
++----+----------------------------------+-------+------------+---------+----------------------------+
+|  9 | b0a9d96dfc688db4fceab0055c661ce4 | 2001  | Sumaq      | VIVO    | 2026-02-01 11:00:00.000000 |
+|  7 | 5b40db794d4aa9a3cfb7bc02ab10e233 | 1007  | Tayta      | VENDIDO | 2026-02-14 12:00:00.000000 |
+|  8 | 6faa2137db5e17ead1f5cf7af930a1f0 | 1008  | Mama Ocllo | MUERTO  | 2026-03-02 08:30:00.000000 |
++----+----------------------------------+-------+------------+---------+----------------------------+
+
+
+== Q8
+SELECT especie, raza, COUNT(*) AS total,
+       ROUND(100 * COUNT(*) / SUM(COUNT(*)) OVER (), 1) AS porcentaje
+FROM animales
+WHERE estado = 'VIVO'
+GROUP BY especie, raza
+ORDER BY total DESC;
+
++---------+---------+-------+------------+
+| especie | raza    | total | porcentaje |
++---------+---------+-------+------------+
+| alpaca  | Huacaya |     4 |       57.1 |
+| alpaca  | Suri    |     2 |       28.6 |
+| llama   | Ch'aku  |     1 |       14.3 |
++---------+---------+-------+------------+
+
+
+== Q9
+SELECT p.numero_esquila, p.fecha_esquila, p.peso_vellon_lb, p.longitud_mecha_cm,
+       f.dmf, f.cv, f.factor_confort, f.indice_curvatura
+FROM producciones p
+LEFT JOIN analisis_fibra f ON f.produccion_id = p.id
+WHERE p.animal_id = 1
+ORDER BY p.numero_esquila;
+
++----------------+---------------+----------------+-------------------+-------+-------+----------------+------------------+
+| numero_esquila | fecha_esquila | peso_vellon_lb | longitud_mecha_cm | dmf   | cv    | factor_confort | indice_curvatura |
++----------------+---------------+----------------+-------------------+-------+-------+----------------+------------------+
+|              1 | 2022-11-20    |           5.80 |               9.5 |  NULL |  NULL |           NULL |             NULL |
+|              2 | 2023-11-18    |           6.10 |              10.0 | 21.40 | 20.10 |          92.50 |            28.00 |
+|              3 | 2024-11-16    |           6.40 |              10.2 | 21.90 | 20.50 |          91.00 |            27.20 |
++----------------+---------------+----------------+-------------------+-------+-------+----------------+------------------+
+
+
+== Q10
+SELECT a.especie, a.raza,
+       COUNT(f.id)                    AS analisis,
+       ROUND(AVG(f.dmf),2)            AS dmf_promedio_um,
+       ROUND(AVG(f.factor_confort),1) AS confort_promedio
+FROM analisis_fibra f
+JOIN producciones p ON p.id = f.produccion_id
+JOIN animales a     ON a.id = p.animal_id
+GROUP BY a.especie, a.raza
+HAVING COUNT(f.id) >= 1
+ORDER BY dmf_promedio_um;
+
++---------+---------+----------+-----------------+------------------+
+| especie | raza    | analisis | dmf_promedio_um | confort_promedio |
++---------+---------+----------+-----------------+------------------+
+| alpaca  | Huacaya |        4 |           21.80 |             90.9 |
+| alpaca  | Suri    |        2 |           23.05 |             86.7 |
++---------+---------+----------+-----------------+------------------+
+
+
+== Q11
+SELECT a.especie, a.arete, a.nombre,
+       ROUND(AVG(f.dmf),2) AS dmf_promedio,
+       RANK() OVER (PARTITION BY a.especie ORDER BY AVG(f.dmf)) AS puesto
+FROM animales a
+JOIN producciones p ON p.animal_id = a.id
+JOIN analisis_fibra f ON f.produccion_id = p.id
+GROUP BY a.id, a.especie, a.arete, a.nombre
+ORDER BY a.especie, puesto;
+
++---------+-------+--------+--------------+--------+
+| especie | arete | nombre | dmf_promedio | puesto |
++---------+-------+--------+--------------+--------+
+| alpaca  | 1003  | Luna   |        19.80 |      1 |
+| alpaca  | 1004  | Wayra  |        20.50 |      2 |
+| alpaca  | 1001  | Killa  |        21.65 |      3 |
+| alpaca  | 1002  | Inti   |        24.10 |      4 |
+| alpaca  | 1006  | Amaru  |        25.60 |      5 |
++---------+-------+--------+--------------+--------+
+
+
+== Q12
+SELECT v.id, v.sku, v.precio_base,
+       COALESCE((SELECT MIN(t.precio_especial) FROM precios_temporada t
+                 WHERE t.variante_id = v.id AND t.activo = 1
+                   AND CURDATE() BETWEEN t.fecha_inicio AND t.fecha_fin), v.precio_base) AS precio_vigente
+FROM variantes_producto v
+ORDER BY v.id;
+
++------+----------------+-------------+----------------+
+| id   | sku            | precio_base | precio_vigente |
++------+----------------+-------------+----------------+
+|    1 | CHOM-M-GRIS-SB |      185.00 |         185.00 |
+|    2 | CHOM-L-GRIS-SB |      185.00 |         185.00 |
+|    3 | CHOM-M-CREMA-B |      165.00 |         165.00 |
+|    4 | BUF-U-NAT-B    |       89.00 |          89.00 |
+|    5 | HILO-U-NAT     |       35.00 |          35.00 |
+|    6 | FIB-1KG-BL     |      120.00 |         120.00 |
++------+----------------+-------------+----------------+
+
+
+== Q13
+SELECT talla, color, tipo_prenda, stock, stock_reservado,
+       GREATEST(stock - stock_reservado, 0) AS disponible
+FROM variantes_producto
+WHERE producto_id = 1
+ORDER BY talla, color;
+
++-------+-------+-------------+-------+-----------------+------------+
+| talla | color | tipo_prenda | stock | stock_reservado | disponible |
++-------+-------+-------------+-------+-----------------+------------+
+| L     | Gris  | super baby  |     4 |               0 |          4 |
+| M     | Crema | baby        |     3 |               1 |          2 |
+| M     | Gris  | super baby  |     6 |               2 |          4 |
++-------+-------+-------------+-------+-----------------+------------+
+
+
+== Q14
+SELECT pr.nombre AS producto, ar.nombre AS artesano, l.codigo_lote, l.tipo_fibra,
+       an.arete, an.nombre AS animal, an.raza,
+       pd.numero_esquila, pd.fecha_esquila, f.dmf, f.factor_confort,
+       (SELECT GROUP_CONCAT(pl.etapa ORDER BY pl.orden_secuencia SEPARATOR ' → ')
+        FROM procesos_lote pl WHERE pl.lote_id = l.id) AS procesos
+FROM productos pr
+LEFT JOIN artesanos ar       ON ar.id = pr.artesano_id
+LEFT JOIN lotes l            ON l.id = pr.lote_id
+LEFT JOIN animales an        ON an.id = l.animal_id
+LEFT JOIN producciones pd    ON pd.id = l.produccion_id
+LEFT JOIN analisis_fibra f   ON f.produccion_id = pd.id
+WHERE pr.slug = 'chompa-de-alpaca-baby';
+
++-----------------------+-----------------------------------+-------------+------------+-------+--------+---------+----------------+---------------+-------+----------------+-----------------------------------------------------------------+
+| producto              | artesano                          | codigo_lote | tipo_fibra | arete | animal | raza    | numero_esquila | fecha_esquila | dmf   | factor_confort | procesos                                                        |
++-----------------------+-----------------------------------+-------------+------------+-------+--------+---------+----------------+---------------+-------+----------------+-----------------------------------------------------------------+
+| Chompa de alpaca baby | Asociación Tejedoras de Chucuito  | LT-2024-001 | alpaca     | 1001  | Killa  | Huacaya |              3 | 2024-11-16    | 21.90 |          91.00 | clasificacion → lavado → escarmenado → peinado → hilado         |
++-----------------------+-----------------------------------+-------------+------------+-------+--------+---------+----------------+---------------+-------+----------------+-----------------------------------------------------------------+
+
+
+== Q15
+SELECT p.codigo, p.cliente_nombre, p.cliente_contacto, p.total, pg.metodo, pg.created_at AS comprobante_subido
+FROM pedidos p
+JOIN pagos pg ON pg.pedido_id = p.id
+WHERE p.estado = 'pendiente' AND pg.estado = 'pendiente'
+ORDER BY pg.created_at;
+
++----------+----------------+------------------+--------+--------+----------------------------+
+| codigo   | cliente_nombre | cliente_contacto | total  | metodo | comprobante_subido         |
++----------+----------------+------------------+--------+--------+----------------------------+
+| WP-00001 | María Flores   | 987654321        | 459.00 | yape   | 2026-11-01 10:35:00.000000 |
++----------+----------------+------------------+--------+--------+----------------------------+
+
+
+== Q16
+SELECT v.sku, pr.nombre, SUM(d.cantidad) AS unidades, SUM(d.cantidad * d.precio_unitario) AS ingresos
+FROM detalle_pedido d
+JOIN pedidos p             ON p.id = d.pedido_id AND p.estado IN ('pagado','entregado')
+JOIN variantes_producto v  ON v.id = d.variante_id
+JOIN productos pr          ON pr.id = v.producto_id
+GROUP BY v.id, v.sku, pr.nombre
+ORDER BY unidades DESC, ingresos DESC;
+
++----------------+------------------------------------+----------+----------+
+| sku            | nombre                             | unidades | ingresos |
++----------------+------------------------------------+----------+----------+
+| CHOM-L-GRIS-SB | Chompa de alpaca baby              |        1 |   185.00 |
+| FIB-1KG-BL     | Fibra de alpaca clasificada (1 kg) |        1 |   120.00 |
++----------------+------------------------------------+----------+----------+
+
+
+== Q17
+SELECT p.codigo, p.cliente_nombre, p.created_at,
+       p.created_at + INTERVAL c.horas_reserva HOUR AS reserva_vence
+FROM pedidos p
+CROSS JOIN configuracion_tienda c
+WHERE c.id = 1 AND p.estado = 'pendiente'
+  AND p.created_at + INTERVAL c.horas_reserva HOUR <= NOW();
+
++----------+----------------+----------------------------+----------------------------+
+| codigo   | cliente_nombre | created_at                 | reserva_vence              |
++----------+----------------+----------------------------+----------------------------+
+| WP-00001 | María Flores   | 2026-11-01 10:30:00.000000 | 2026-11-03 10:30:00.000000 |
+| WP-00005 | Ana Torres     | 2026-10-29 08:15:00.000000 | 2026-10-31 08:15:00.000000 |
++----------+----------------+----------------------------+----------------------------+
+
+
+== Q18
+SELECT av.id, COALESCE(NULLIF(av.titulo,''), an.nombre, an.arete) AS nombre_publico,
+       av.proposito, av.precio, av.estado,
+       an.raza, pa.arete AS padre, ma.arete AS madre,
+       ROUND(AVG(f.dmf),2) AS dmf_promedio
+FROM animales_en_venta av
+JOIN animales an          ON an.id = av.animal_id
+LEFT JOIN animales pa     ON pa.id = an.padre_id
+LEFT JOIN animales ma     ON ma.id = an.madre_id
+LEFT JOIN producciones pd ON pd.animal_id = an.id
+LEFT JOIN analisis_fibra f ON f.produccion_id = pd.id
+WHERE av.estado IN ('disponible','reservado','vendido')
+GROUP BY av.id, av.titulo, an.nombre, an.arete, av.proposito, av.precio, av.estado, an.raza, pa.arete, ma.arete
+ORDER BY av.orden;
+
++----+----------------------------------+-------------+---------+------------+---------+-------+-------+--------------+
+| id | nombre_publico                   | proposito   | precio  | estado     | raza    | padre | madre | dmf_promedio |
++----+----------------------------------+-------------+---------+------------+---------+-------+-------+--------------+
+|  1 | Wayra — macho Suri reproductor   | reproductor | 2800.00 | disponible | Suri    | 1002  | 1001  |        20.50 |
+|  3 | Pacha — cría hembra Huacaya      | cria        | 1800.00 | reservado  | Huacaya | 1006  | 1003  |         NULL |
++----+----------------------------------+-------------+---------+------------+---------+-------+-------+--------------+
+
+
+== Q19
+SELECT DATE_FORMAT(created_at, '%Y-%m') AS mes, COUNT(*) AS pedidos, SUM(total) AS ingresos
+FROM pedidos
+WHERE estado IN ('pagado','entregado')
+GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+ORDER BY mes;
+
++---------+---------+----------+
+| mes     | pedidos | ingresos |
++---------+---------+----------+
+| 2026-10 |       2 |   305.00 |
++---------+---------+----------+
+
+
+== Q20
+SELECT CASE e.ubicacion WHEN 'cabecera' THEN 'Navbar' ELSE 'Footer' END AS menu,
+       e.grupo, e.texto, e.enlace
+FROM enlaces_navegacion e
+WHERE e.activo = 1
+ORDER BY e.ubicacion, e.grupo, e.orden;
+
++--------+--------+-------------------+-----------+
+| menu   | grupo  | texto             | enlace    |
++--------+--------+-------------------+-----------+
+| Navbar |        | Catálogo          | /catalogo |
+| Navbar |        | Ferias            | /ferias   |
+| Navbar |        | Mi pedido         | /pedido   |
+| Footer | Ayuda  | Seguir mi pedido  | /pedido   |
+| Footer | Tienda | Catálogo          | /catalogo |
+| Footer | Tienda | Animales en venta | /animales |
++--------+--------+-------------------+-----------+

@@ -1,0 +1,34 @@
+sequenceDiagram
+  autonumber
+  actor C as Criador
+  participant F as Formulario de animal
+  participant API as API /animales/
+  participant U as calcular_coi()
+  participant DB as MySQL 8
+  C->>F: Selecciona padre (macho) y madre (hembra)
+  F->>API: GET /animales/consanguinidad/?padre=uid&madre=uid
+  API->>DB: Verifica que ambos animales existan
+  alt alguno no existe
+    API-->>F: 404 Animal no encontrado
+  else ambos existen
+    API->>U: calcular_coi(padre, madre, max_depth = 3)
+    U->>DB: Recorre los ancestros de cada uno (hasta 3 generaciones)
+    U->>U: Ancestros comunes y COI = suma de (1/2)^(n1 + n2 + 1)
+    U->>U: Nivel: ninguno, muy bajo, bajo, moderado (6,25 %), alto (12,5 %), muy alto (25 %)
+    U-->>API: coi, nivel, ancestros_comunes
+    API-->>F: 200 con el porcentaje y el nivel de riesgo
+    F-->>C: Muestra el indicador de consanguinidad
+  end
+  C->>F: Presiona Guardar
+  alt COI igual o mayor a 6,25 %
+    F-->>C: Advertencia: porcentaje, nivel y riesgo para la cría
+    alt el Criador confirma
+      F->>API: POST /animales/ (valida sexo, especie y fechas)
+      API-->>F: 201 animal registrado
+    else el Criador cancela
+      F-->>C: Vuelve al formulario para cambiar los padres
+    end
+  else COI menor a 6,25 %
+    F->>API: POST /animales/
+    API-->>F: 201 animal registrado
+  end

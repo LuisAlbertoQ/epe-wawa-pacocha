@@ -1,0 +1,32 @@
+digraph "e1_capas" {
+  graph [fontname="Helvetica", fontsize=12, bgcolor=white, pad=0.2, rankdir=TB, nodesep=0.3, ranksep=0.35, newrank=true];
+  node [fontname="Helvetica", fontsize=12];
+  edge [fontname="Helvetica", fontsize=10, color="#555555", penwidth=1.1];
+
+  subgraph cluster_dj { label=<<B>Backend Django (back_GenApp)</B>>; style=rounded; color="#2E6B33"; bgcolor="#F4FAF4";
+    d1 [shape=tab, style="filled", fillcolor="#E3F1E4", color="#1F3864", label=<<B>Presentación HTTP</B><BR/><FONT POINT-SIZE="10">urls.py · views.py (ViewSets DRF)</FONT><BR/><FONT POINT-SIZE="10">admin.py · admin_site.py (panel)</FONT>>];
+    d2 [shape=tab, style="filled", fillcolor="#E3F1E4", color="#1F3864", label=<<B>Serialización y validación</B><BR/><FONT POINT-SIZE="10">serializers.py</FONT><BR/><FONT POINT-SIZE="10">reglas de padres, imágenes, stock</FONT>>];
+    d3 [shape=tab, style="filled", fillcolor="#E3F1E4", color="#1F3864", label=<<B>Servicios de dominio</B><BR/><FONT POINT-SIZE="10">tienda/services.py (transacciones)</FONT><BR/><FONT POINT-SIZE="10">animales/utils.py (COI, edades)</FONT>>];
+    d4 [shape=tab, style="filled", fillcolor="#E3F1E4", color="#1F3864", label=<<B>Modelo / persistencia</B><BR/><FONT POINT-SIZE="10">models.py (ORM) · migrations/</FONT><BR/><FONT POINT-SIZE="10">MySQL 8</FONT>>];
+    d5 [shape=tab, style="filled", fillcolor="#F2F2F2", color="#1F3864", label=<<B>Configuración transversal</B><BR/><FONT POINT-SIZE="10">geneapp/settings.py · JWT · CORS</FONT><BR/><FONT POINT-SIZE="10">logging · management/commands</FONT>>];
+  }
+  subgraph cluster_fl { label=<<B>App móvil (front_genapp/lib)</B>>; style=rounded; color="#1F3864"; bgcolor="#F4F7FB";
+    f1 [shape=tab, style="filled", fillcolor="#EAF0FA", color="#1F3864", label=<<B>Presentación</B><BR/><FONT POINT-SIZE="10">ui/features/*/views</FONT><BR/><FONT POINT-SIZE="10">ui/core (tema, widgets)</FONT>>];
+    f2 [shape=tab, style="filled", fillcolor="#EAF0FA", color="#1F3864", label=<<B>Estado y navegación</B><BR/><FONT POINT-SIZE="10">ui/features/*/providers (Riverpod)</FONT><BR/><FONT POINT-SIZE="10">routes/app_router.dart (GoRouter)</FONT>>];
+    f3 [shape=tab, style="filled", fillcolor="#EAF0FA", color="#1F3864", label=<<B>Datos</B><BR/><FONT POINT-SIZE="10">data/repositories</FONT><BR/><FONT POINT-SIZE="10">data/models</FONT>>];
+    f4 [shape=tab, style="filled", fillcolor="#EAF0FA", color="#1F3864", label=<<B>Infraestructura</B><BR/><FONT POINT-SIZE="10">data/services/api_service.dart (Dio)</FONT><BR/><FONT POINT-SIZE="10">flutter_secure_storage</FONT>>];
+    f5 [shape=tab, style="filled", fillcolor="#EAF0FA", color="#1F3864", label=<<B>Persistencia local y sincronización</B><BR/><FONT POINT-SIZE="10">data/services/local_store.dart (sqflite)</FONT><BR/><FONT POINT-SIZE="10">sync_service.dart · genealogia.dart</FONT>>];
+  }
+  subgraph cluster_nx { label=<<B>Tienda web (front_TiendaVirtual/src)</B>>; style=rounded; color="#8A5A00"; bgcolor="#FFFBF3";
+    n1 [shape=tab, style="filled", fillcolor="#FCEFD9", color="#1F3864", label=<<B>Páginas (App Router)</B><BR/><FONT POINT-SIZE="10">app/* (catálogo, producto, carrito,</FONT><BR/><FONT POINT-SIZE="10">checkout, pedido, ferias, animales)</FONT>>];
+    n2 [shape=tab, style="filled", fillcolor="#FCEFD9", color="#1F3864", label=<<B>Componentes</B><BR/><FONT POINT-SIZE="10">components/* (Header, FiltrosCatalogo,</FONT><BR/><FONT POINT-SIZE="10">TrazabilidadPanel, FormularioPago…)</FONT>>];
+    n3 [shape=tab, style="filled", fillcolor="#FCEFD9", color="#1F3864", label=<<B>Estado del cliente</B><BR/><FONT POINT-SIZE="10">store/CarritoContext.tsx</FONT><BR/><FONT POINT-SIZE="10">(carrito persistente)</FONT>>];
+    n4 [shape=tab, style="filled", fillcolor="#FCEFD9", color="#1F3864", label=<<B>Acceso a la API</B><BR/><FONT POINT-SIZE="10">lib/api.ts · lib/types.ts</FONT><BR/><FONT POINT-SIZE="10">app/api/[...ruta] (proxy)</FONT>>];
+  }
+  d1 -> d2 -> d3 -> d4; d5 -> d1 [style=dashed, arrowhead=none];
+  f1 -> f2 -> f3 -> f4; f3 -> f5;
+  n1 -> n2 -> n3 -> n4; n1 -> n4 [style=dashed];
+  f4 -> d1 [label="JSON + JWT", constraint=false];
+  n4 -> d1 [label="JSON", constraint=false];
+
+}

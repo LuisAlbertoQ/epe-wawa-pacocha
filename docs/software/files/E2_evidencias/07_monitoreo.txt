@@ -1,0 +1,107 @@
+== estado_global
++----------------------------------+--------+
+| variable                         | valor  |
++----------------------------------+--------+
+| Aborted_connects                 | 0      |
+| Innodb_buffer_pool_read_requests | 779782 |
+| Innodb_buffer_pool_reads         | 1282   |
+| Max_used_connections             | 1      |
+| Questions                        | 541    |
+| Slow_queries                     | 82     |
+| Threads_connected                | 1      |
+| Uptime                           | 74     |
++----------------------------------+--------+
+
+== hit_ratio
++-------------------------+
+| acierto_buffer_pool_pct |
++-------------------------+
+|                   99.84 |
++-------------------------+
+
+== top_sentencias
++------------------------------------------------------------------------+-------------+----------------+----------------+-----------------------+
+| sentencia                                                              | ejecuciones | latencia_total | latencia_media | filas_examinadas_prom |
++------------------------------------------------------------------------+-------------+----------------+----------------+-----------------------+
+| SELECT TABLE_NAME AS `tabla` , `rows_fetched` AS `filas_leidas` , `row |           1 | 23.41 ms       | 23.41 ms       |                    37 |
+| SELECT `id` , `uid` , `arete` , `estado` , `updated_at` FROM `animales |           7 | 17.87 ms       | 2.55 ms        |                  5758 |
+| SELECT `id` , `arete` , `nombre` , `estado` FROM `animales` WHERE `are |           7 | 15.83 ms       | 2.26 ms        |                  5718 |
+| SELECT @@`version_comment` LIMIT ?                                     |         128 | 14.41 ms       | 112.5 us       |                     1 |
+| SELECT `tc` . `table_name` AS `tabla` , `cc` . `constraint_name` AS `r |           1 | 14.19 ms       | 14.19 ms       |                   858 |
++------------------------------------------------------------------------+-------------+----------------+----------------+-----------------------+
+
+== escaneos_completos
++--------------------+-------------------------+-----------+
+| tabla              | filas_leidas_sin_indice | latencia  |
++--------------------+-------------------------+-----------+
+| pagos              |                       9 | 197.62 us |
+| producciones       |                       8 | 127.92 us |
+| analisis_fibra     |                       7 | 90.58 us  |
+| enlaces_navegacion |                       6 | 215.14 us |
+| variantes_producto |                       3 | 78.85 us  |
++--------------------+-------------------------+-----------+
+
+== io_tablas
++--------------------+--------------+------------+--------------+---------------+
+| tabla              | filas_leidas | insertadas | actualizadas | lectura_disco |
++--------------------+--------------+------------+--------------+---------------+
+| pedidos            |           42 |          0 |            0 | 176.00 KiB    |
+| variantes_producto |           39 |          6 |            7 |    0 bytes    |
+| producciones       |           39 |          8 |            0 |    0 bytes    |
+| analisis_fibra     |           20 |          6 |            0 |    0 bytes    |
+| pagos              |           15 |          4 |            5 |    0 bytes    |
+| detalle_pedido     |            9 |          7 |            0 |    0 bytes    |
++--------------------+--------------+------------+--------------+---------------+
+
+== indices_sin_uso
++----------------+----------------------+
+| tabla          | indice               |
++----------------+----------------------+
+| animales       | usuario_id           |
+| animales       | idx_animales_updated |
+| animales       | idx_animales_estado  |
+| animales       | padre_id             |
+| animales       | madre_id             |
+| detalle_pedido | variante_id          |
+| fotos_animal   | animal_id            |
+| lotes          | produccion_id        |
+| lotes          | animal_id            |
+| pagos          | idx_pagos_huella     |
++----------------+----------------------+
+
+== tamano
++--------------+-------------+----------+------------+
+| tabla        | filas_aprox | datos_kb | indices_kb |
++--------------+-------------+----------+------------+
+| animales     |       19901 |     3600 |       4032 |
+| pedidos      |        4938 |      512 |        320 |
+| productos    |           4 |       16 |         64 |
+| pagos        |           4 |       16 |         48 |
+| producciones |           8 |       16 |         48 |
+| lotes        |           2 |       16 |         48 |
++--------------+-------------+----------+------------+
+
+== conexiones
++-----------------+------------+
+| usuario         | conexiones |
++-----------------+------------+
+| root            |          1 |
+| event_scheduler |          1 |
++-----------------+------------+
+
+== config_slow
++----------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+| slow_log | umbral_s | archivo                                                                                                                       |
++----------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+|        1 | 0.005000 | C:/Users/lucho/AppData/Local/Temp/claude/45c7ff872b03bb0a/ece33298-c7c3-4aa4-ad62-22fad31f4ad0/scratchpad/mysql/logs/slow.log |
++----------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+
+== slow_total
+97
+
+== slow_muestra
+# Time: 2026-11-13T20:31:24.699148Z
+# User@Host: root[root] @ localhost [127.0.0.1]  Id:   123
+# Query_time: 0.006080  Lock_time: 0.000003 Rows_sent: 1  Rows_examined: 20010
+SET timestamp=1794601884;
+SELECT id, arete, nombre, estado FROM animales WHERE arete = 'S012345';
