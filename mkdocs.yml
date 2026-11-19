@@ -38,6 +38,11 @@ nav:
       - E5 · Propuesta TIC Integrada: gestion/e5.md
   - Infraestructura:
       - Resumen: infraestructura/index.md
+      - S1 E1 · Red: infraestructura/s1e1.md
+      - S1 E2 · Centro de Datos: infraestructura/s1e2.md
+      - S2 E1 · SGSI: infraestructura/s2e1.md
+      - S2 E2 · Monitoreo de Red: infraestructura/s2e2.md
+      - S2 E3 · Centro de Datos: infraestructura/s2e3.md
       - Recursos y archivos: infraestructura/recursos.md
 
 markdown_extensions:
